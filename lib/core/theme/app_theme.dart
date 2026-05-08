@@ -13,10 +13,8 @@ class AppTheme {
 
     textTheme: GoogleFonts.interTextTheme(),
 
-   cardTheme: CardThemeData(
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(16),
-  ),
-),
+    cardTheme: CardThemeData(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    ),
   );
 }
