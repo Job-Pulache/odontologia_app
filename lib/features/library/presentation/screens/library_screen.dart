@@ -19,8 +19,6 @@ class LibraryScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-
-      // 2. AQUÍ VA TU CÓDIGO (En el body)
       body: ListView.separated(
         padding: const EdgeInsets.all(20), //
         itemCount: mockDocuments.length,

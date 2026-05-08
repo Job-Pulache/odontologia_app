@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:odontologia_app/features/home/presentation/screens/home_screen.dart';
 
 import 'core/theme/app_theme.dart';
 import 'shared/widgets/main_navigation.dart';
@@ -31,7 +32,7 @@ class MyApp extends ConsumerWidget {
 
       darkTheme: ThemeData.dark(),
 
-      home: const ReaderScreen(),
+      home: const MainNavigation(),
     );
   }
 }
