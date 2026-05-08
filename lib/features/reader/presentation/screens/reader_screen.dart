@@ -25,6 +25,9 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
   ];
 
   bool isFavorite = false;
+  final List<String> notes = [];
+
+  final TextEditingController noteController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -384,6 +387,223 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                 setState(() {
                   isFavorite = !isFavorite;
                 });
+              },
+            ),
+
+            ToolbarButton(
+              icon: Icons.edit_note_outlined,
+              label: 'Notas',
+
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+
+                  isScrollControlled: true,
+
+                  backgroundColor: Colors.transparent,
+
+                  builder: (_) {
+                    return StatefulBuilder(
+                      builder: (context, setModalState) {
+                        return Container(
+                          height: 650,
+
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(30),
+                            ),
+                          ),
+
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 14),
+
+                              Container(
+                                width: 60,
+                                height: 6,
+
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+
+                              const SizedBox(height: 24),
+
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 24),
+
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+
+                                  child: Text(
+                                    'Notas del Documento',
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              const SizedBox(height: 20),
+
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                ),
+
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextField(
+                                        controller: noteController,
+
+                                        decoration: InputDecoration(
+                                          hintText: 'Escribir nota clínica...',
+
+                                          filled: true,
+
+                                          fillColor: const Color(0xFFF5F7FA),
+
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              18,
+                                            ),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                    const SizedBox(width: 12),
+
+                                    GestureDetector(
+                                      onTap: () {
+                                        if (noteController.text
+                                            .trim()
+                                            .isEmpty) {
+                                          return;
+                                        }
+
+                                        setState(() {
+                                          notes.add(noteController.text);
+                                        });
+
+                                        setModalState(() {});
+
+                                        noteController.clear();
+                                      },
+
+                                      child: Container(
+                                        padding: const EdgeInsets.all(16),
+
+                                        decoration: BoxDecoration(
+                                          color: AppColors.primary,
+                                          borderRadius: BorderRadius.circular(
+                                            18,
+                                          ),
+                                        ),
+
+                                        child: const Icon(
+                                          Icons.send,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              const SizedBox(height: 24),
+
+                              Expanded(
+                                child: notes.isEmpty
+                                    ? const Center(
+                                        child: Text(
+                                          'Aún no hay notas',
+                                          style: TextStyle(
+                                            color: AppColors.textSecondary,
+                                          ),
+                                        ),
+                                      )
+                                    : ListView.separated(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 24,
+                                        ),
+
+                                        itemCount: notes.length,
+
+                                        separatorBuilder: (_, __) =>
+                                            const SizedBox(height: 14),
+
+                                        itemBuilder: (context, index) {
+                                          return Container(
+                                            padding: const EdgeInsets.all(18),
+
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFF8FAFC),
+
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+
+                                              children: [
+                                                Container(
+                                                  padding: const EdgeInsets.all(
+                                                    10,
+                                                  ),
+
+                                                  decoration: BoxDecoration(
+                                                    color: AppColors.primary
+                                                        .withOpacity(0.1),
+
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          12,
+                                                        ),
+                                                  ),
+
+                                                  child: const Icon(
+                                                    Icons.sticky_note_2,
+                                                    color: AppColors.primary,
+                                                  ),
+                                                ),
+
+                                                const SizedBox(width: 14),
+
+                                                Expanded(
+                                                  child: Text(
+                                                    notes[index],
+
+                                                    style: const TextStyle(
+                                                      height: 1.6,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
               },
             ),
 
