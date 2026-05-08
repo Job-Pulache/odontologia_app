@@ -1,20 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../constants/app_colors.dart';
+
 class AppTheme {
+
   static ThemeData light = ThemeData(
+
     useMaterial3: true,
-    scaffoldBackgroundColor: const Color(0xFFF5F7FA),
+
+    scaffoldBackgroundColor: AppColors.background,
 
     colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color(0xFF1F5AA6),
-      primary: const Color(0xFF1F5AA6),
+      seedColor: AppColors.primary,
+      primary: AppColors.primary,
     ),
 
     textTheme: GoogleFonts.interTextTheme(),
 
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      centerTitle: false,
+    ),
+
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: Colors.white,
+
+      indicatorColor: AppColors.primary.withOpacity(0.12),
+
+      labelTextStyle: WidgetStateProperty.all(
+        const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    ),
+
     cardTheme: CardThemeData(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      color: Colors.white,
+
+      elevation: 0,
+
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
     ),
   );
 }
