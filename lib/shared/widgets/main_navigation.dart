@@ -5,6 +5,8 @@ import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/library/presentation/screens/library_screen.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/tools/presentation/screens/tools_screen.dart';
+import '../../features/reader/presentation/screens/reader_screen.dart';
+
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -23,6 +25,7 @@ class _MainNavigationState extends State<MainNavigation> {
     EventsScreen(),
     ToolsScreen(),
     ProfileScreen(),
+    ReaderScreen(),
   ];
 
   @override
