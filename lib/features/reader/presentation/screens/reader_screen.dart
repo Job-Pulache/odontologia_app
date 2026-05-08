@@ -14,6 +14,19 @@ class ReaderScreen extends ConsumerStatefulWidget {
 
 class _ReaderScreenState extends ConsumerState<ReaderScreen> {
   double fontSize = 18;
+  final String documentContent = '''
+
+El presente protocolo establece los lineamientos obligatorios de bioseguridad para todos los profesionales colegiados del Colegio de Odontólogos.
+
+Su aplicación tiene como objetivo garantizar la protección integral del paciente y del personal clínico durante la atención odontológica.
+
+Las medidas aquí descritas deben implementarse de forma estricta en consultorios, clínicas y centros especializados afiliados.
+
+Todo procedimiento deberá realizarse utilizando equipo de protección personal certificado y siguiendo estándares internacionales actualizados.
+
+El incumplimiento de estas medidas podrá representar un riesgo sanitario significativo para pacientes y profesionales.
+
+''';
   final chapters = [
     'Introducción',
     'Medidas de Bioseguridad',
@@ -26,9 +39,11 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
 
   bool isFavorite = false;
   bool isBookmarked = false;
+  List<String> searchResults = [];
   final List<String> notes = [];
 
   final TextEditingController noteController = TextEditingController();
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +99,241 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                     ),
                   ),
 
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+                  IconButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
 
+                        isScrollControlled: true,
+
+                        backgroundColor: Colors.transparent,
+
+                        builder: (_) {
+                          return StatefulBuilder(
+                            builder: (context, setModalState) {
+                              return Container(
+                                height: 650,
+
+                                padding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(
+                                    context,
+                                  ).viewInsets.bottom,
+                                ),
+
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(30),
+                                  ),
+                                ),
+
+                                child: Column(
+                                  children: [
+                                    const SizedBox(height: 14),
+
+                                    Container(
+                                      width: 60,
+                                      height: 6,
+
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade300,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 24),
+
+                                    const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 24,
+                                      ),
+
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+
+                                        child: Text(
+                                          'Buscar en el documento',
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 20),
+
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 24,
+                                      ),
+
+                                      child: TextField(
+                                        controller: searchController,
+
+                                        decoration: InputDecoration(
+                                          hintText: 'Buscar palabra o frase...',
+
+                                          prefixIcon: const Icon(Icons.search),
+
+                                          filled: true,
+
+                                          fillColor: const Color(0xFFF5F7FA),
+
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              18,
+                                            ),
+
+                                            borderSide: BorderSide.none,
+                                          ),
+                                        ),
+
+                                        onChanged: (value) {
+                                          searchResults.clear();
+
+                                          if (value.trim().isEmpty) {
+                                            setModalState(() {});
+                                            return;
+                                          }
+
+                                          final paragraphs = documentContent
+                                              .split('\n');
+
+                                          for (var paragraph in paragraphs) {
+                                            if (paragraph
+                                                .toLowerCase()
+                                                .contains(
+                                                  value.toLowerCase(),
+                                                )) {
+                                              searchResults.add(paragraph);
+                                            }
+                                          }
+
+                                          setModalState(() {});
+                                        },
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 24),
+
+                                    Expanded(
+                                      child: searchResults.isEmpty
+                                          ? const Center(
+                                              child: Text(
+                                                'Sin resultados',
+                                                style: TextStyle(
+                                                  color:
+                                                      AppColors.textSecondary,
+                                                ),
+                                              ),
+                                            )
+                                          : ListView.separated(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 24,
+                                                  ),
+
+                                              itemCount: searchResults.length,
+
+                                              separatorBuilder: (_, __) =>
+                                                  const SizedBox(height: 14),
+
+                                              itemBuilder: (context, index) {
+                                                return Container(
+                                                  padding: const EdgeInsets.all(
+                                                    18,
+                                                  ),
+
+                                                  decoration: BoxDecoration(
+                                                    color: const Color(
+                                                      0xFFF8FAFC,
+                                                    ),
+
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          20,
+                                                        ),
+                                                  ),
+
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Container(
+                                                            padding:
+                                                                const EdgeInsets.all(
+                                                                  10,
+                                                                ),
+
+                                                            decoration: BoxDecoration(
+                                                              color: AppColors
+                                                                  .primary
+                                                                  .withOpacity(
+                                                                    0.1,
+                                                                  ),
+
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                    12,
+                                                                  ),
+                                                            ),
+
+                                                            child: const Icon(
+                                                              Icons.search,
+                                                              color: AppColors
+                                                                  .primary,
+                                                            ),
+                                                          ),
+
+                                                          const SizedBox(
+                                                            width: 12,
+                                                          ),
+
+                                                          const Text(
+                                                            'Coincidencia',
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+
+                                                      const SizedBox(
+                                                        height: 14,
+                                                      ),
+
+                                                      Text(
+                                                        searchResults[index],
+
+                                                        style: const TextStyle(
+                                                          height: 1.7,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+
+                    icon: const Icon(Icons.search),
+                  ),
                   IconButton(
                     onPressed: () {
                       ref.read(darkModeProvider.notifier).state = !ref.read(
