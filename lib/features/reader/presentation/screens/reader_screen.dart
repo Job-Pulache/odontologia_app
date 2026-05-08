@@ -25,6 +25,7 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
   ];
 
   bool isFavorite = false;
+  bool isBookmarked = false;
   final List<String> notes = [];
 
   final TextEditingController noteController = TextEditingController();
@@ -373,9 +374,35 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
             ),
 
             ToolbarButton(
-              icon: Icons.bookmark_border,
+              icon: isBookmarked ? Icons.bookmark : Icons.bookmark_border,
+
               label: 'Marcador',
-              onTap: () {},
+
+              onTap: () {
+                setState(() {
+                  isBookmarked = !isBookmarked;
+                });
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    behavior: SnackBarBehavior.floating,
+
+                    backgroundColor: Colors.black87,
+
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+
+                    content: Text(
+                      isBookmarked
+                          ? 'Marcador guardado correctamente'
+                          : 'Marcador eliminado',
+
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+              },
             ),
 
             ToolbarButton(
