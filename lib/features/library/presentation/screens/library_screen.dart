@@ -5,10 +5,6 @@ class LibraryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Biblioteca'),
-      ),
-    );
+    return const Scaffold(body: Center(child: Text('Biblioteca')));
   }
 }

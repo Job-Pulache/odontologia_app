@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/storage/local_storage_service.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_spacing.dart';
@@ -44,6 +45,20 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
 
   final TextEditingController noteController = TextEditingController();
   final TextEditingController searchController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+
+    loadBookmark();
+  }
+
+  Future<void> loadBookmark() async {
+    final value = await LocalStorageService.getBookmark();
+
+    setState(() {
+      isBookmarked = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -630,6 +645,8 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
                 setState(() {
                   isBookmarked = !isBookmarked;
                 });
+
+                LocalStorageService.saveBookmark(isBookmarked);
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
