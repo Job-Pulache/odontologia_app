@@ -13,43 +13,37 @@ class ReaderScreen extends ConsumerStatefulWidget {
 }
 
 class _ReaderScreenState extends ConsumerState<ReaderScreen> {
-
   double fontSize = 18;
+  final chapters = [
+    'Introducción',
+    'Medidas de Bioseguridad',
+    'Protección del Paciente',
+    'Uso de Instrumental',
+    'Procedimientos Clínicos',
+    'Manejo de Residuos',
+    'Normativas Finales',
+  ];
 
   bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       backgroundColor: const Color(0xFFF8FAFC),
 
       body: SafeArea(
-
         child: Column(
-
           children: [
-
             // =====================================
             // HEADER
             // =====================================
-
             Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
 
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 16,
-              ),
-
-              decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
+              decoration: const BoxDecoration(color: Colors.white),
 
               child: Row(
-
                 children: [
-
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -63,7 +57,6 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
 
                       children: [
-
                         Text(
                           'Protocolo de Bioseguridad 2025',
                           style: TextStyle(
@@ -87,16 +80,20 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                     ),
                   ),
 
-                  IconButton(
-                    onPressed: () {},
-
-                    icon: const Icon(Icons.search),
-                  ),
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
 
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      ref.read(darkModeProvider.notifier).state = !ref.read(
+                        darkModeProvider,
+                      );
+                    },
 
-                    icon: const Icon(Icons.more_vert),
+                    icon: Icon(
+                      ref.watch(darkModeProvider)
+                          ? Icons.dark_mode
+                          : Icons.light_mode,
+                    ),
                   ),
                 ],
               ),
@@ -105,7 +102,6 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
             // =====================================
             // PROGRESS BAR
             // =====================================
-
             const LinearProgressIndicator(
               value: 0.35,
               minHeight: 4,
@@ -116,11 +112,8 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
             // =====================================
             // CONTENT
             // =====================================
-
             Expanded(
-
               child: SingleChildScrollView(
-
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
                   vertical: 28,
@@ -130,7 +123,6 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-
                     const Text(
                       'Introducción',
                       style: TextStyle(
@@ -142,18 +134,49 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
 
                     const SizedBox(height: 24),
 
-                    Text(
-                      '''
-El presente protocolo establece los lineamientos obligatorios de bioseguridad para todos los profesionales colegiados del Colegio de Odontólogos.
+                    SelectableText.rich(
+                      TextSpan(
+                        style: TextStyle(
+                          fontSize: fontSize,
+                          height: 1.9,
+                          color: AppColors.textPrimary,
+                        ),
 
-Su aplicación tiene como objetivo garantizar la protección integral del paciente y del personal clínico durante la atención odontológica.
+                        children: [
+                          const TextSpan(
+                            text:
+                                'El presente protocolo establece los lineamientos obligatorios de bioseguridad para todos los profesionales colegiados del Colegio de Odontólogos.\n\n',
+                          ),
 
-Las medidas aquí descritas deben implementarse de forma estricta en consultorios, clínicas y centros especializados afiliados.
+                          TextSpan(
+                            text:
+                                'Su aplicación tiene como objetivo garantizar la protección integral del paciente y del personal clínico durante la atención odontológica.\n\n',
 
-Todo procedimiento deberá realizarse utilizando equipo de protección personal certificado y siguiendo estándares internacionales actualizados.
+                            style: TextStyle(
+                              backgroundColor: Colors.yellow.withOpacity(0.35),
+                            ),
+                          ),
 
-El incumplimiento de estas medidas podrá representar un riesgo sanitario significativo para pacientes y profesionales.
-''',
+                          const TextSpan(
+                            text:
+                                'Las medidas aquí descritas deben implementarse de forma estricta en consultorios, clínicas y centros especializados afiliados.\n\n',
+                          ),
+
+                          TextSpan(
+                            text:
+                                'Todo procedimiento deberá realizarse utilizando equipo de protección personal certificado y siguiendo estándares internacionales actualizados.\n\n',
+
+                            style: TextStyle(
+                              backgroundColor: Colors.green.withOpacity(0.20),
+                            ),
+                          ),
+
+                          const TextSpan(
+                            text:
+                                'El incumplimiento de estas medidas podrá representar un riesgo sanitario significativo para pacientes y profesionales.',
+                          ),
+                        ],
+                      ),
 
                       style: TextStyle(
                         fontSize: fontSize,
@@ -165,7 +188,6 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
                     const SizedBox(height: 32),
 
                     Container(
-
                       padding: const EdgeInsets.all(20),
 
                       decoration: BoxDecoration(
@@ -180,11 +202,7 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
                         crossAxisAlignment: CrossAxisAlignment.start,
 
                         children: [
-
-                          const Icon(
-                            Icons.info_outline,
-                            color: Colors.amber,
-                          ),
+                          const Icon(Icons.info_outline, color: Colors.amber),
 
                           const SizedBox(width: 12),
 
@@ -214,13 +232,8 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
       // =====================================
       // FLOATING TOOLBAR
       // =====================================
-
       bottomNavigationBar: Container(
-
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 10,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
 
         decoration: BoxDecoration(
           color: Colors.white,
@@ -238,11 +251,122 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
           mainAxisAlignment: MainAxisAlignment.spaceAround,
 
           children: [
-
             ToolbarButton(
               icon: Icons.menu_book_outlined,
               label: 'Índice',
-              onTap: () {},
+
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+
+                  backgroundColor: Colors.transparent,
+
+                  builder: (_) {
+                    return Container(
+                      height: 500,
+
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(28),
+                        ),
+                      ),
+
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 14),
+
+                          Container(
+                            width: 60,
+                            height: 6,
+
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade300,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+
+                          const SizedBox(height: 24),
+
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24),
+
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+
+                              child: Text(
+                                'Índice del Documento',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(height: 24),
+
+                          Expanded(
+                            child: ListView.separated(
+                              itemCount: chapters.length,
+
+                              separatorBuilder: (_, __) =>
+                                  const Divider(height: 1),
+
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  leading: Container(
+                                    width: 36,
+                                    height: 36,
+
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primary.withOpacity(0.1),
+
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+
+                                    child: Center(
+                                      child: Text(
+                                        '${index + 1}',
+                                        style: const TextStyle(
+                                          color: AppColors.primary,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                  title: Text(
+                                    chapters[index],
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+
+                                  trailing: const Icon(Icons.chevron_right),
+
+                                  onTap: () {
+                                    Navigator.pop(context);
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Abriendo: ${chapters[index]}',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
             ),
 
             ToolbarButton(
@@ -252,14 +376,11 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
             ),
 
             ToolbarButton(
-              icon: isFavorite
-                  ? Icons.star
-                  : Icons.star_border,
+              icon: isFavorite ? Icons.star : Icons.star_border,
 
               label: 'Favorito',
 
               onTap: () {
-
                 setState(() {
                   isFavorite = !isFavorite;
                 });
@@ -271,15 +392,11 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
               label: 'Texto',
 
               onTap: () {
-
                 showModalBottomSheet(
-
                   context: context,
 
                   builder: (_) {
-
                     return Container(
-
                       padding: const EdgeInsets.all(24),
 
                       child: Column(
@@ -288,7 +405,6 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
                         crossAxisAlignment: CrossAxisAlignment.start,
 
                         children: [
-
                           const Text(
                             'Tamaño de Texto',
                             style: TextStyle(
@@ -305,7 +421,6 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
                             max: 30,
 
                             onChanged: (value) {
-
                               setState(() {
                                 fontSize = value;
                               });
@@ -330,7 +445,6 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
 // =========================================
 
 class ToolbarButton extends StatelessWidget {
-
   final IconData icon;
   final String label;
   final VoidCallback onTap;
@@ -344,20 +458,14 @@ class ToolbarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
-
       onTap: onTap,
 
       child: Column(
         mainAxisSize: MainAxisSize.min,
 
         children: [
-
-          Icon(
-            icon,
-            color: AppColors.primary,
-          ),
+          Icon(icon, color: AppColors.primary),
 
           const SizedBox(height: 4),
 

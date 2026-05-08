@@ -32,7 +32,7 @@ dependencies:
     sdk: flutter
 
   # Estado
-  flutter_riverpod: ^3.3.1
+  flutter_riverpod: ^2.5.1
 
   # Navegación
   go_router: ^17.2.3
@@ -57,6 +57,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
