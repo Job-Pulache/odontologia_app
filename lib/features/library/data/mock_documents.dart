@@ -6,9 +6,9 @@ final mockDocuments = [
     title: 'Protocolo de Bioseguridad 2025',
     category: 'Protocolos',
     content: '''
-El presente protocolo establece los lineamientos obligatorios de bioseguridad para todos los profesionales colegiados.
+El presente protocolo establece los lineamientos obligatorios de bioseguridad para todos los profesionales colegiados del Colegio de Odontólogos.
 
-Su aplicación tiene como objetivo garantizar la protección integral del paciente y del personal clínico.
+Su aplicación tiene como objetivo garantizar la protección integral del paciente y del personal clínico durante la atención odontológica.
 
 Las medidas aquí descritas deben implementarse de forma estricta en consultorios y clínicas odontológicas.
 ''',

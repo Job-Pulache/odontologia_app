@@ -4,10 +4,14 @@ import '../../../../core/storage/local_storage_service.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_spacing.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../features/library/domain/entities/document_entity.dart';
+//import '../../domain/entities/document_entity.dart';
 import '../../../../core/providers/theme_provider.dart';
 
 class ReaderScreen extends ConsumerStatefulWidget {
-  const ReaderScreen({super.key});
+  final DocumentEntity document;
+
+  const ReaderScreen({super.key, required this.document});
 
   @override
   ConsumerState<ReaderScreen> createState() => _ReaderScreenState();
@@ -86,13 +90,13 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
                     icon: const Icon(Icons.arrow_back_ios_new),
                   ),
 
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
 
                       children: [
                         Text(
-                          'Protocolo de Bioseguridad 2025',
+                          widget.document.title,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
