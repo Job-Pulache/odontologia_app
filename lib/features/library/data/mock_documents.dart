@@ -1,34 +1,31 @@
 import '../domain/entities/document_entity.dart';
 
 final mockDocuments = [
-  DocumentEntity(
-    id: '1',
+  const DocumentEntity(
     title: 'Protocolo de Bioseguridad 2025',
     category: 'Protocolos',
-    content: '''
-El presente protocolo establece los lineamientos obligatorios de bioseguridad para todos los profesionales colegiados del Colegio de Odontólogos.
-
-Su aplicación tiene como objetivo garantizar la protección integral del paciente y del personal clínico durante la atención odontológica.
-
-Las medidas aquí descritas deben implementarse de forma estricta en consultorios y clínicas odontológicas.
-''',
+    type: 'PDF',
+    description: 'Lineamientos oficiales de bioseguridad clínica odontológica.',
   ),
 
-  DocumentEntity(
-    id: '2',
-    title: 'Guía Clínica de Ortodoncia',
+  const DocumentEntity(
+    title: 'Guía Clínica de Endodoncia',
     category: 'Guías Clínicas',
-    content: '''
-La ortodoncia moderna requiere protocolos especializados para garantizar diagnósticos precisos y tratamientos eficientes.
-''',
+    type: 'PDF',
+    description: 'Procedimientos y recomendaciones actualizadas de endodoncia.',
   ),
 
-  DocumentEntity(
-    id: '3',
-    title: 'Normativa de Atención Dental',
+  const DocumentEntity(
+    title: 'Normativa Radiológica',
     category: 'Normativas',
-    content: '''
-Toda institución odontológica colegiada deberá cumplir con estándares nacionales actualizados.
-''',
+    type: 'PDF',
+    description: 'Reglamento institucional sobre radiología odontológica.',
+  ),
+
+  const DocumentEntity(
+    title: 'Caso Clínico: Ortodoncia',
+    category: 'Casos Clínicos',
+    type: 'VIDEO',
+    description: 'Análisis clínico completo de tratamiento ortodóntico.',
   ),
 ];

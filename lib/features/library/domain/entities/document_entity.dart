@@ -1,15 +1,17 @@
 class DocumentEntity {
-  final String id;
   final String title;
   final String category;
-  final String content;
+  final String type;
+  final String description;
+  final bool isDownloaded;
   final bool isFavorite;
 
   const DocumentEntity({
-    required this.id,
     required this.title,
     required this.category,
-    required this.content,
+    required this.type,
+    required this.description,
+    this.isDownloaded = false,
     this.isFavorite = false,
   });
 }

@@ -56,7 +56,7 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
 
     loadBookmark();
     Future<void> loadFavorite() async {
-      final value = await FavoritesService.isFavorite(widget.document.id);
+      final value = await FavoritesService.isFavorite(widget.document.title);
 
       setState(() {
         isFavorite = value;
@@ -690,10 +690,10 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
               label: 'Favorito',
 
               onTap: () async {
-                await FavoritesService.toggleFavorite(widget.document.id);
+                await FavoritesService.toggleFavorite(widget.document.title);
 
                 final updated = await FavoritesService.isFavorite(
-                  widget.document.id,
+                  widget.document.title,
                 );
 
                 setState(() {

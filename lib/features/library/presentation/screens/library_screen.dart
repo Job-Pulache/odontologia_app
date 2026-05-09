@@ -1,97 +1,363 @@
 import 'package:flutter/material.dart';
-import '../../data/mock_documents.dart';
-import '../../../../features/reader/presentation/screens/reader_screen.dart';
-import '../../../../core/constants/app_colors.dart'; // Asegúrate de importar tus colores
 
-class LibraryScreen extends StatelessWidget {
+import '../../../../core/constants/app_colors.dart';
+
+import '../../data/mock_documents.dart';
+import '../../domain/entities/document_entity.dart';
+
+import '../../../reader/presentation/screens/reader_screen.dart';
+
+class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
 
   @override
+  State<LibraryScreen> createState() => _LibraryScreenState();
+}
+
+class _LibraryScreenState extends State<LibraryScreen> {
+  String selectedFilter = 'Todos';
+
+  final filters = ['Todos', 'PDF', 'VIDEO', 'Offline'];
+
+  @override
   Widget build(BuildContext context) {
+    List<DocumentEntity> filteredDocs = selectedFilter == 'Todos'
+        ? mockDocuments
+        : mockDocuments.where((doc) => doc.type == selectedFilter).toList();
+
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
 
-      appBar: AppBar(
-        title: const Text(
-          'Biblioteca',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(20), //
-        itemCount: mockDocuments.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 16),
-        itemBuilder: (context, index) {
-          final document = mockDocuments[index];
+      body: SafeArea(
+        child: Column(
+          children: [
+            // =====================================
+            // HEADER
+            // =====================================
+            Padding(
+              padding: const EdgeInsets.all(24),
 
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => ReaderScreen(document: document),
-                ),
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.03),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: const Icon(
-                      Icons.picture_as_pdf_outlined,
-                      color: AppColors.primary,
-                    ),
+                  const Text(
+                    'Biblioteca Clínica',
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(width: 18),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          document.title,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
 
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          document.category,
-                          style: const TextStyle(
-                            color: AppColors.textSecondary,
-                          ),
-                        ),
-                      ],
+                  const SizedBox(height: 8),
+
+                  const Text(
+                    'Consulta protocolos, normativas y documentos oficiales.',
+                    style: TextStyle(
+                      color: AppColors.textSecondary,
+                      fontSize: 15,
                     ),
                   ),
-                  const Icon(Icons.chevron_right, color: Colors.grey),
+
+                  const SizedBox(height: 24),
+
+                  // SEARCH
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Buscar documento...',
+
+                      prefixIcon: const Icon(Icons.search),
+
+                      filled: true,
+                      fillColor: Colors.white,
+
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // CATEGORIES GRID
+                  GridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+
+                    mainAxisSpacing: 14,
+                    crossAxisSpacing: 14,
+
+                    childAspectRatio: 1.6,
+
+                    children: [
+                      categoryCard(
+                        icon: Icons.health_and_safety_outlined,
+                        title: 'Protocolos',
+                      ),
+
+                      categoryCard(
+                        icon: Icons.menu_book_outlined,
+                        title: 'Guías Clínicas',
+                      ),
+
+                      categoryCard(
+                        icon: Icons.gavel_outlined,
+                        title: 'Normativas',
+                      ),
+
+                      categoryCard(
+                        icon: Icons.science_outlined,
+                        title: 'Casos Clínicos',
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // FILTERS
+                  SizedBox(
+                    height: 40,
+
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+
+                      itemCount: filters.length,
+
+                      separatorBuilder: (_, __) => const SizedBox(width: 10),
+
+                      itemBuilder: (context, index) {
+                        final filter = filters[index];
+
+                        final isSelected = selectedFilter == filter;
+
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedFilter = filter;
+                            });
+                          },
+
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 250),
+
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 10,
+                            ),
+
+                            decoration: BoxDecoration(
+                              color: isSelected
+                                  ? AppColors.primary
+                                  : Colors.white,
+
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+
+                            child: Text(
+                              filter,
+                              style: TextStyle(
+                                color: isSelected
+                                    ? Colors.white
+                                    : AppColors.textPrimary,
+
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
-          );
-        },
+
+            // =====================================
+            // DOCUMENTS
+            // =====================================
+            Expanded(
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+
+                itemCount: filteredDocs.length,
+
+                separatorBuilder: (_, __) => const SizedBox(height: 18),
+
+                itemBuilder: (context, index) {
+                  final doc = filteredDocs[index];
+
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ReaderScreen(document: doc),
+                        ),
+                      );
+                    },
+
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+
+                        borderRadius: BorderRadius.circular(24),
+
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.03),
+                            blurRadius: 12,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
+                      ),
+
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 62,
+                            height: 62,
+
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withOpacity(0.1),
+
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+
+                            child: const Icon(
+                              Icons.picture_as_pdf_outlined,
+                              color: AppColors.primary,
+                              size: 30,
+                            ),
+                          ),
+
+                          const SizedBox(width: 18),
+
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+
+                              children: [
+                                Text(
+                                  doc.title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 8),
+
+                                Text(
+                                  doc.description,
+                                  style: const TextStyle(
+                                    color: AppColors.textSecondary,
+                                    height: 1.5,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 12),
+
+                                Row(
+                                  children: [
+                                    miniTag(doc.type),
+
+                                    const SizedBox(width: 10),
+
+                                    miniTag(doc.category),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          const SizedBox(width: 10),
+
+                          Column(
+                            children: [
+                              IconButton(
+                                onPressed: () {},
+
+                                icon: const Icon(Icons.download_outlined),
+                              ),
+
+                              IconButton(
+                                onPressed: () {},
+
+                                icon: const Icon(Icons.favorite_border),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget miniTag(String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+
+      decoration: BoxDecoration(
+        color: AppColors.primary.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(20),
+      ),
+
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: AppColors.primary,
+          fontWeight: FontWeight.w600,
+          fontSize: 12,
+        ),
+      ),
+    );
+  }
+
+  Widget categoryCard({required IconData icon, required String title}) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(22),
+
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+
+            decoration: BoxDecoration(
+              color: AppColors.primary.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(16),
+            ),
+
+            child: Icon(icon, color: AppColors.primary),
+          ),
+
+          const SizedBox(height: 14),
+
+          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        ],
       ),
     );
   }
