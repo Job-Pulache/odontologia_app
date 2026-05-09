@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../shared/widgets/app_card.dart';
+import '../../../search/presentation/screens/search_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,41 +19,32 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
-
               // =========================
               // HEADER
               // =========================
-
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                 children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const SearchScreen()),
+                      );
+                    },
 
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
 
-                    children: [
-
-                      Text(
-                        'Bienvenido',
-                        style: TextStyle(
-                          color: AppColors.textSecondary,
-                          fontSize: 14,
-                        ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(14),
                       ),
 
-                      SizedBox(height: 4),
-
-                      Text(
-                        'Hola, Dr. Ramírez',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                    ],
+                      child: const Icon(Icons.search, size: 24),
+                    ),
                   ),
+
+                  const SizedBox(width: 12),
 
                   Container(
                     padding: const EdgeInsets.all(10),
@@ -64,11 +56,7 @@ class HomeScreen extends StatelessWidget {
 
                     child: Stack(
                       children: [
-
-                        const Icon(
-                          Icons.notifications_none,
-                          size: 26,
-                        ),
+                        const Icon(Icons.notifications_none, size: 26),
 
                         Positioned(
                           right: 0,
@@ -95,7 +83,6 @@ class HomeScreen extends StatelessWidget {
               // =========================
               // BANNER PRINCIPAL
               // =========================
-
               Container(
                 width: double.infinity,
 
@@ -103,10 +90,7 @@ class HomeScreen extends StatelessWidget {
 
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [
-                      Color(0xFF1F5AA6),
-                      Color(0xFF4DA6FF),
-                    ],
+                    colors: [Color(0xFF1F5AA6), Color(0xFF4DA6FF)],
                   ),
 
                   borderRadius: BorderRadius.circular(24),
@@ -116,10 +100,8 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-
                     Row(
                       children: [
-
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 12,
@@ -133,7 +115,6 @@ class HomeScreen extends StatelessWidget {
 
                           child: const Row(
                             children: [
-
                               Icon(
                                 Icons.campaign_outlined,
                                 color: Colors.white,
@@ -156,10 +137,7 @@ class HomeScreen extends StatelessWidget {
 
                         const Spacer(),
 
-                        const Icon(
-                          Icons.chevron_right,
-                          color: Colors.white,
-                        ),
+                        const Icon(Icons.chevron_right, color: Colors.white),
                       ],
                     ),
 
@@ -167,10 +145,7 @@ class HomeScreen extends StatelessWidget {
 
                     const Text(
                       'Comunicado Oficial',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(color: Colors.white70, fontSize: 14),
                     ),
 
                     const SizedBox(height: 8),
@@ -193,11 +168,7 @@ class HomeScreen extends StatelessWidget {
               // =========================
               // ACCESOS RAPIDOS
               // =========================
-
-              const SectionHeader(
-                title: 'Accesos Rápidos',
-                action: 'Ver todo',
-              ),
+              const SectionHeader(title: 'Accesos Rápidos', action: 'Ver todo'),
 
               const SizedBox(height: AppSpacing.md),
 
@@ -211,7 +182,6 @@ class HomeScreen extends StatelessWidget {
                 childAspectRatio: 1.2,
 
                 children: const [
-
                   QuickAccessCard(
                     icon: Icons.menu_book_outlined,
                     title: 'Biblioteca Clínica',
@@ -243,7 +213,6 @@ class HomeScreen extends StatelessWidget {
               // =========================
               // CONTINUAR LEYENDO
               // =========================
-
               const SectionHeader(
                 title: 'Continuar Leyendo',
                 action: 'Ver más',
@@ -256,10 +225,8 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-
                     Row(
                       children: [
-
                         Container(
                           padding: const EdgeInsets.all(10),
 
@@ -279,17 +246,13 @@ class HomeScreen extends StatelessWidget {
                         const Expanded(
                           child: Text(
                             'Guía Clínica de Endodoncia',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
 
                         const Text(
                           '65%',
-                          style: TextStyle(
-                            color: AppColors.textSecondary,
-                          ),
+                          style: TextStyle(color: AppColors.textSecondary),
                         ),
                       ],
                     ),
@@ -311,9 +274,7 @@ class HomeScreen extends StatelessWidget {
 
                     const Text(
                       'Capítulo 4 de 7',
-                      style: TextStyle(
-                        color: AppColors.textSecondary,
-                      ),
+                      style: TextStyle(color: AppColors.textSecondary),
                     ),
                   ],
                 ),
@@ -324,7 +285,6 @@ class HomeScreen extends StatelessWidget {
               // =========================
               // ULTIMOS COMUNICADOS
               // =========================
-
               const SectionHeader(
                 title: 'Últimos Comunicados',
                 action: 'Ver todo',
@@ -334,7 +294,6 @@ class HomeScreen extends StatelessWidget {
 
               const Column(
                 children: [
-
                   NewsCard(
                     title: 'Nuevo Reglamento de Ética',
                     date: '12 Mar 2025',
@@ -354,7 +313,6 @@ class HomeScreen extends StatelessWidget {
               // =========================
               // PROXIMOS EVENTOS
               // =========================
-
               const SectionHeader(
                 title: 'Próximos Eventos',
                 action: 'Ver todo',
@@ -369,7 +327,6 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
 
                   children: const [
-
                     EventMiniCard(
                       title: 'Congreso Nacional de Odontología',
                       location: 'Lima Convention Center',
@@ -401,30 +358,20 @@ class HomeScreen extends StatelessWidget {
 // ======================================================
 
 class SectionHeader extends StatelessWidget {
-
   final String title;
   final String action;
 
-  const SectionHeader({
-    super.key,
-    required this.title,
-    required this.action,
-  });
+  const SectionHeader({super.key, required this.title, required this.action});
 
   @override
   Widget build(BuildContext context) {
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
       children: [
-
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
 
         Text(
@@ -444,7 +391,6 @@ class SectionHeader extends StatelessWidget {
 // ======================================================
 
 class QuickAccessCard extends StatelessWidget {
-
   final IconData icon;
   final String title;
   final String subtitle;
@@ -458,15 +404,12 @@ class QuickAccessCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return AppCard(
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
 
         children: [
-
           Container(
             padding: const EdgeInsets.all(10),
 
@@ -475,20 +418,12 @@ class QuickAccessCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(14),
             ),
 
-            child: Icon(
-              icon,
-              color: AppColors.primary,
-            ),
+            child: Icon(icon, color: AppColors.primary),
           ),
 
           const Spacer(),
 
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
 
           const SizedBox(height: 4),
 
@@ -510,25 +445,16 @@ class QuickAccessCard extends StatelessWidget {
 // ======================================================
 
 class NewsCard extends StatelessWidget {
-
   final String title;
   final String date;
 
-  const NewsCard({
-    super.key,
-    required this.title,
-    required this.date,
-  });
+  const NewsCard({super.key, required this.title, required this.date});
 
   @override
   Widget build(BuildContext context) {
-
     return AppCard(
-
       child: Row(
-
         children: [
-
           Container(
             padding: const EdgeInsets.all(12),
 
@@ -537,10 +463,7 @@ class NewsCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
 
-            child: const Icon(
-              Icons.feed_outlined,
-              color: AppColors.primary,
-            ),
+            child: const Icon(Icons.feed_outlined, color: AppColors.primary),
           ),
 
           const SizedBox(width: 14),
@@ -550,12 +473,9 @@ class NewsCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
-
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
 
                 const SizedBox(height: 4),
@@ -571,10 +491,7 @@ class NewsCard extends StatelessWidget {
             ),
           ),
 
-          const Icon(
-            Icons.chevron_right,
-            color: Colors.grey,
-          ),
+          const Icon(Icons.chevron_right, color: Colors.grey),
         ],
       ),
     );
@@ -586,7 +503,6 @@ class NewsCard extends StatelessWidget {
 // ======================================================
 
 class EventMiniCard extends StatelessWidget {
-
   final String title;
   final String location;
   final String date;
@@ -600,22 +516,16 @@ class EventMiniCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       width: 220,
 
       child: AppCard(
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 6,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
 
               decoration: BoxDecoration(
                 color: AppColors.primary,
@@ -633,18 +543,12 @@ class EventMiniCard extends StatelessWidget {
 
             const SizedBox(height: 14),
 
-            Text(
-              title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
 
             const Spacer(),
 
             Row(
               children: [
-
                 const Icon(
                   Icons.location_on_outlined,
                   size: 16,
