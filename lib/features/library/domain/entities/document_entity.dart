@@ -3,6 +3,7 @@ class DocumentEntity {
   final String category;
   final String type;
   final String description;
+  final String filePath;
   final bool isDownloaded;
   final bool isFavorite;
 
@@ -11,6 +12,7 @@ class DocumentEntity {
     required this.category,
     required this.type,
     required this.description,
+    required this.filePath,
     this.isDownloaded = false,
     this.isFavorite = false,
   });

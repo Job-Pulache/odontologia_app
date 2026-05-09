@@ -7,6 +7,7 @@ import '../../domain/entities/document_entity.dart';
 
 import '../../../reader/presentation/screens/reader_screen.dart';
 import '../../../../core/storage/document_storage_service.dart';
+import '../../../reader/presentation/screens/pdf_reader_screen.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
@@ -217,7 +218,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => ReaderScreen(document: doc),
+                          builder: (_) => PdfReaderScreen(document: doc),
                         ),
                       );
                     },

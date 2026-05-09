@@ -6,6 +6,7 @@ final mockDocuments = [
     category: 'Protocolos',
     type: 'PDF',
     description: 'Lineamientos oficiales de bioseguridad clínica odontológica.',
+    filePath: 'assets/pdfs/bioseguridad.pdf',
   ),
 
   const DocumentEntity(
@@ -13,13 +14,15 @@ final mockDocuments = [
     category: 'Guías Clínicas',
     type: 'PDF',
     description: 'Procedimientos y recomendaciones actualizadas de endodoncia.',
+    filePath: 'assets/pdfs/endodoncia.pdf',
   ),
 
   const DocumentEntity(
-    title: 'Normativa Radiológica',
-    category: 'Normativas',
+    title: 'Protocolo de Bioseguridad 2025',
+    category: 'Protocolos',
     type: 'PDF',
-    description: 'Reglamento institucional sobre radiología odontológica.',
+    description: 'Lineamientos oficiales de bioseguridad clínica odontológica.',
+    filePath: 'assets/pdfs/radiologia.pdf',
   ),
 
   const DocumentEntity(
@@ -27,5 +30,6 @@ final mockDocuments = [
     category: 'Casos Clínicos',
     type: 'VIDEO',
     description: 'Análisis clínico completo de tratamiento ortodóntico.',
+    filePath: 'assets/pdfs/ortodoncia.mp4',
   ),
 ];
