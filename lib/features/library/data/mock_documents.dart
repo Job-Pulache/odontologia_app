@@ -6,7 +6,7 @@ final mockDocuments = [
     category: 'Protocolos',
     type: 'PDF',
     description: 'Lineamientos oficiales de bioseguridad clínica odontológica.',
-    filePath: 'assets/pdfs/bioseguridad.pdf',
+    filePath: 'assets/pdfs/bioSegurity.pdf',
   ),
 
   const DocumentEntity(
@@ -22,14 +22,13 @@ final mockDocuments = [
     category: 'Protocolos',
     type: 'PDF',
     description: 'Lineamientos oficiales de bioseguridad clínica odontológica.',
-    filePath: 'assets/pdfs/radiologia.pdf',
+    filePath: 'assets/pdfs/bioseguridad.pdf',
   ),
 
-  const DocumentEntity(
+  /* const DocumentEntity(
     title: 'Caso Clínico: Ortodoncia',
     category: 'Casos Clínicos',
     type: 'VIDEO',
     description: 'Análisis clínico completo de tratamiento ortodóntico.',
-    filePath: 'assets/pdfs/ortodoncia.mp4',
-  ),
+  ),*/
 ];
