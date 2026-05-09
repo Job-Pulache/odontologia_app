@@ -6,6 +6,7 @@ import '../../data/mock_documents.dart';
 import '../../domain/entities/document_entity.dart';
 
 import '../../../reader/presentation/screens/reader_screen.dart';
+import '../../../../core/storage/document_storage_service.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
@@ -16,14 +17,40 @@ class LibraryScreen extends StatefulWidget {
 
 class _LibraryScreenState extends State<LibraryScreen> {
   String selectedFilter = 'Todos';
+  List<String> favorites = [];
+  List<String> downloads = [];
 
   final filters = ['Todos', 'PDF', 'VIDEO', 'Offline'];
+  @override
+  void initState() {
+    super.initState();
+
+    loadStorage();
+  }
+
+  Future<void> loadStorage() async {
+    favorites = await DocumentStorageService.getFavorites();
+
+    downloads = await DocumentStorageService.getDownloads();
+
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<DocumentEntity> filteredDocs = selectedFilter == 'Todos'
-        ? mockDocuments
-        : mockDocuments.where((doc) => doc.type == selectedFilter).toList();
+    List<DocumentEntity> filteredDocs;
+
+    if (selectedFilter == 'Todos') {
+      filteredDocs = mockDocuments;
+    } else if (selectedFilter == 'Offline') {
+      filteredDocs = mockDocuments
+          .where((doc) => downloads.contains(doc.title))
+          .toList();
+    } else {
+      filteredDocs = mockDocuments
+          .where((doc) => doc.type == selectedFilter)
+          .toList();
+    }
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
@@ -276,15 +303,49 @@ class _LibraryScreenState extends State<LibraryScreen> {
                           Column(
                             children: [
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await DocumentStorageService.toggleDownload(
+                                    doc.title,
+                                  );
 
-                                icon: const Icon(Icons.download_outlined),
+                                  downloads =
+                                      await DocumentStorageService.getDownloads();
+
+                                  setState(() {});
+                                },
+
+                                icon: Icon(
+                                  downloads.contains(doc.title)
+                                      ? Icons.download_done
+                                      : Icons.download_outlined,
+
+                                  color: downloads.contains(doc.title)
+                                      ? AppColors.primary
+                                      : null,
+                                ),
                               ),
 
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await DocumentStorageService.toggleFavorite(
+                                    doc.title,
+                                  );
 
-                                icon: const Icon(Icons.favorite_border),
+                                  favorites =
+                                      await DocumentStorageService.getFavorites();
+
+                                  setState(() {});
+                                },
+
+                                icon: Icon(
+                                  favorites.contains(doc.title)
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+
+                                  color: favorites.contains(doc.title)
+                                      ? Colors.red
+                                      : null,
+                                ),
                               ),
                             ],
                           ),
