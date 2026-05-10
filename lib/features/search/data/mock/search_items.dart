@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../domain/entities/search_item.dart';
 
 final List<SearchItem> mockSearchItems = [
@@ -6,6 +8,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Documento',
     subtitle: 'Actualización clínica 2025',
     type: 'PDF',
+    icon: Icons.picture_as_pdf_outlined,
   ),
 
   SearchItem(
@@ -13,6 +16,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Biblioteca',
     subtitle: 'Procedimientos modernos',
     type: 'PDF',
+    icon: Icons.menu_book_outlined,
   ),
 
   SearchItem(
@@ -20,6 +24,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Evento',
     subtitle: '22 Marzo 2025',
     type: 'EVENT',
+    icon: Icons.event_outlined,
   ),
 
   SearchItem(
@@ -27,6 +32,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Herramienta',
     subtitle: 'Cálculo odontológico',
     type: 'TOOL',
+    icon: Icons.calculate_outlined,
   ),
 
   SearchItem(
@@ -34,5 +40,6 @@ final List<SearchItem> mockSearchItems = [
     category: 'Normativa',
     subtitle: 'Reglamento institucional',
     type: 'PDF',
+    icon: Icons.gavel_outlined,
   ),
 ];
