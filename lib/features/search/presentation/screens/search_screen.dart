@@ -127,9 +127,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 children: [
                   buildFilterChip('Todos'),
-                  buildFilterChip('document'),
-                  buildFilterChip('event'),
-                  buildFilterChip('tool'),
+                  buildFilterChip('documentos'),
+                  buildFilterChip('evento'),
+                  buildFilterChip('herramientas'),
                 ],
               ),
             ),
