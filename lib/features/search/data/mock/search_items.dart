@@ -1,45 +1,28 @@
 import 'package:flutter/material.dart';
-
 import '../../domain/entities/search_item.dart';
 
 final List<SearchItem> mockSearchItems = [
   SearchItem(
     title: 'Protocolo de Bioseguridad',
-    category: 'Documento',
-    subtitle: 'Actualización clínica 2025',
-    type: 'PDF',
-    icon: Icons.picture_as_pdf_outlined,
+    subtitle: 'Actualizado 2025',
+    category: 'Documento Clínico',
+    icon: Icons.picture_as_pdf,
+    type: 'document',
   ),
 
   SearchItem(
-    title: 'Guía de Endodoncia',
-    category: 'Biblioteca',
-    subtitle: 'Procedimientos modernos',
-    type: 'PDF',
-    icon: Icons.menu_book_outlined,
-  ),
-
-  SearchItem(
-    title: 'Congreso Nacional de Odontología',
+    title: 'Congreso Nacional',
+    subtitle: 'Lima Convention Center',
     category: 'Evento',
-    subtitle: '22 Marzo 2025',
-    type: 'EVENT',
-    icon: Icons.event_outlined,
+    icon: Icons.event,
+    type: 'event',
   ),
 
   SearchItem(
-    title: 'Calculadora Clínica',
+    title: 'Calculadora Dental',
+    subtitle: 'Herramienta Clínica',
     category: 'Herramienta',
-    subtitle: 'Cálculo odontológico',
-    type: 'TOOL',
-    icon: Icons.calculate_outlined,
-  ),
-
-  SearchItem(
-    title: 'Normativas CO',
-    category: 'Normativa',
-    subtitle: 'Reglamento institucional',
-    type: 'PDF',
-    icon: Icons.gavel_outlined,
+    icon: Icons.calculate,
+    type: 'tool',
   ),
 ];

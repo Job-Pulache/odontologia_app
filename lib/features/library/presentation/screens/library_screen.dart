@@ -86,7 +86,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
                   const SizedBox(height: 24),
 
-                  // SEARCH
                   TextField(
                     decoration: InputDecoration(
                       hintText: 'Buscar documento...',
@@ -105,7 +104,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
                   const SizedBox(height: 24),
 
-                  // CATEGORIES GRID
                   GridView.count(
                     crossAxisCount: 2,
                     shrinkWrap: true,
@@ -141,7 +139,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
                   const SizedBox(height: 24),
 
-                  // FILTERS
                   SizedBox(
                     height: 40,
 
@@ -199,9 +196,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
               ),
             ),
 
-            // =====================================
-            // DOCUMENTS
-            // =====================================
             Expanded(
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 24),

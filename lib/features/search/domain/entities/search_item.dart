@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class SearchItem {
   final String title;
-  final String category;
   final String subtitle;
-  final String type;
+  final String category;
   final IconData icon;
+  final String type;
 
   SearchItem({
     required this.title,
-    required this.category,
     required this.subtitle,
-    required this.type,
+    required this.category,
     required this.icon,
+    required this.type,
   });
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
+import 'package:odontologia_app/features/library/domain/entities/document_entity.dart';
+import 'package:odontologia_app/features/reader/presentation/screens/reader_screen.dart';
+
+import '../../../../../core/constants/app_colors.dart';
 import '../../data/mock/search_items.dart';
 import '../../domain/entities/search_item.dart';
 
@@ -76,56 +79,91 @@ class _SearchScreenState extends State<SearchScreen> {
                       separatorBuilder: (_, __) => const SizedBox(height: 14),
                       itemBuilder: (context, index) {
                         final item = filteredItems[index];
-                        return Container(
-                          padding: const EdgeInsets.all(18),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(22),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.03),
-                                blurRadius: 10,
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(14),
-                                decoration: BoxDecoration(
-                                  color: AppColors.primary.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(16),
+
+                        return GestureDetector(
+                          onTap: () {
+                            if (item.type == 'document') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ReaderScreen(
+                                    document: DocumentEntity(
+                                      title: item.title,
+                                      description: item.subtitle,
+                                      filePath: '',
+                                      type: '',
+                                      category: item.category,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+
+                          child: Container(
+                            padding: const EdgeInsets.all(18),
+
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(22),
+
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.03),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(14),
+
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primary.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+
+                                  child: Icon(
+                                    item.icon,
+                                    color: AppColors.primary,
+                                  ),
                                 ),
 
-                                child: Icon(
-                                  item.icon,
-                                  color: AppColors.primary,
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      item.title, // .title
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
+                                const SizedBox(width: 16),
+
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+
+                                    children: [
+                                      Text(
+                                        item.title,
+
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 6),
-                                    Text(
-                                      item.category, // .category
-                                      style: const TextStyle(
-                                        color: AppColors.textSecondary,
+
+                                      const SizedBox(height: 6),
+
+                                      Text(
+                                        item.category,
+
+                                        style: const TextStyle(
+                                          color: AppColors.textSecondary,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const Icon(Icons.chevron_right),
-                            ],
+
+                                const Icon(Icons.chevron_right),
+                              ],
+                            ),
                           ),
                         );
                       },
