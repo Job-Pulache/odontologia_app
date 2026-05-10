@@ -25,10 +25,11 @@ final mockDocuments = [
     filePath: 'assets/pdfs/bioseguridad.pdf',
   ),
 
-  /* const DocumentEntity(
+  const DocumentEntity(
     title: 'Caso Clínico: Ortodoncia',
     category: 'Casos Clínicos',
     type: 'VIDEO',
     description: 'Análisis clínico completo de tratamiento ortodóntico.',
-  ),*/
+    filePath: 'assets/videos/ortodoncia.mp4',
+  ),
 ];

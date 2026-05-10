@@ -80,9 +80,6 @@ class HomeScreen extends StatelessWidget {
 
               const SizedBox(height: AppSpacing.lg),
 
-              // =========================
-              // BANNER PRINCIPAL
-              // =========================
               Container(
                 width: double.infinity,
 
@@ -151,7 +148,7 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: 8),
 
                     const Text(
-                      'Actualización del Reglamento de Ética 2025',
+                      'Actualización del Reglamento de Ética 2026',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 22,
