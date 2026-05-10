@@ -16,8 +16,20 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController searchController = TextEditingController();
   List<SearchItem> filteredItems = mockSearchItems;
 
-  // Corregido: Nombre consistente para la variable
   String selectedCategory = 'Todos';
+  final List<String> recentSearches = [
+    'Bioseguridad',
+    'Endodoncia',
+    'Ética profesional',
+  ];
+
+  final List<String> trendingSearches = [
+    'Congreso Nacional',
+    'Guía Clínica 2026',
+    'Protocolos HONTAVIRUS',
+  ];
+
+  bool get isSearching => searchController.text.trim().isNotEmpty;
 
   @override
   void dispose() {
@@ -83,6 +95,57 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
+  Widget buildSearchSuggestion(String text, IconData icon) {
+    return GestureDetector(
+      onTap: () {
+        searchController.text = text;
+        applyFilters();
+      },
+
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 14),
+
+        padding: const EdgeInsets.all(18),
+
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+
+          boxShadow: [
+            BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 10),
+          ],
+        ),
+
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+
+              decoration: BoxDecoration(
+                color: AppColors.primary.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(14),
+              ),
+
+              child: Icon(icon, color: AppColors.primary),
+            ),
+
+            const SizedBox(width: 14),
+
+            Expanded(
+              child: Text(
+                text,
+
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
+            ),
+
+            const Icon(Icons.north_west),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +198,53 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             const SizedBox(height: 18),
             Expanded(
-              child: filteredItems.isEmpty
+              child: !isSearching
+                  ? SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                        children: [
+                          const Text(
+                            'Búsquedas recientes',
+
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                          const SizedBox(height: 18),
+
+                          ...recentSearches.map(
+                            (search) =>
+                                buildSearchSuggestion(search, Icons.history),
+                          ),
+
+                          const SizedBox(height: 30),
+
+                          const Text(
+                            'Tendencias',
+
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                          const SizedBox(height: 18),
+
+                          ...trendingSearches.map(
+                            (search) => buildSearchSuggestion(
+                              search,
+                              Icons.trending_up,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : filteredItems.isEmpty
                   ? const Center(
                       child: Text(
                         'No se encontraron resultados',
@@ -144,8 +253,11 @@ class _SearchScreenState extends State<SearchScreen> {
                     )
                   : ListView.separated(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
+
                       itemCount: filteredItems.length,
+
                       separatorBuilder: (_, __) => const SizedBox(height: 14),
+
                       itemBuilder: (context, index) {
                         final item = filteredItems[index];
 
@@ -159,10 +271,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                     document: DocumentEntity(
                                       title: item.title,
                                       description: item.subtitle,
-                                      filePath:
-                                          '', // Asegúrate que estos nombres existan en tu entidad
-                                      type:
-                                          '', // Si no, cámbialos por fileUrl o similar
+                                      filePath: '',
+                                      type: '',
                                       category: item.category,
                                     ),
                                   ),
@@ -170,11 +280,14 @@ class _SearchScreenState extends State<SearchScreen> {
                               );
                             }
                           },
+
                           child: Container(
                             padding: const EdgeInsets.all(18),
+
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(22),
+
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.03),
@@ -182,35 +295,45 @@ class _SearchScreenState extends State<SearchScreen> {
                                 ),
                               ],
                             ),
+
                             child: Row(
                               children: [
                                 Container(
                                   padding: const EdgeInsets.all(14),
+
                                   decoration: BoxDecoration(
                                     color: AppColors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(16),
                                   ),
+
                                   child: Icon(
                                     item.icon,
                                     color: AppColors.primary,
                                   ),
                                 ),
+
                                 const SizedBox(width: 16),
+
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
+
                                     children: [
                                       Text(
                                         item.title,
+
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
                                         ),
                                       ),
+
                                       const SizedBox(height: 6),
+
                                       Text(
                                         item.category,
+
                                         style: const TextStyle(
                                           color: AppColors.textSecondary,
                                         ),
@@ -218,6 +341,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     ],
                                   ),
                                 ),
+
                                 const Icon(Icons.chevron_right),
                               ],
                             ),
