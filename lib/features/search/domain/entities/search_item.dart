@@ -6,6 +6,7 @@ class SearchItem {
   final String category;
   final IconData icon;
   final String type;
+  final String imageUrl;
 
   SearchItem({
     required this.title,
@@ -13,5 +14,6 @@ class SearchItem {
     required this.category,
     required this.icon,
     required this.type,
+    required this.imageUrl,
   });
 }

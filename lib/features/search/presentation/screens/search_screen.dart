@@ -298,17 +298,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
                             child: Row(
                               children: [
-                                Container(
-                                  padding: const EdgeInsets.all(14),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(18),
 
-                                  decoration: BoxDecoration(
-                                    color: AppColors.primary.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
+                                  child: Image.network(
+                                    item.imageUrl,
 
-                                  child: Icon(
-                                    item.icon,
-                                    color: AppColors.primary,
+                                    width: 70,
+                                    height: 70,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
 

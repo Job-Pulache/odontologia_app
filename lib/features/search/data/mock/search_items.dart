@@ -8,6 +8,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Documento Clínico',
     icon: Icons.picture_as_pdf,
     type: 'document',
+    imageUrl: 'https://images.unsplash.com/photo-1517842645767-c639042777db',
   ),
   SearchItem(
     title: 'Protocolo de Bioseguridad',
@@ -15,6 +16,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Documento Clínico',
     icon: Icons.picture_as_pdf,
     type: 'document',
+    imageUrl: 'https://images.unsplash.com/photo-1517842645767-c639042777db',
   ),
   SearchItem(
     title: 'Protocolo de Bioseguridad',
@@ -22,6 +24,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Documento Clínico',
     icon: Icons.picture_as_pdf,
     type: 'document',
+    imageUrl: 'https://images.unsplash.com/photo-1517842645767-c639042777db',
   ),
 
   SearchItem(
@@ -30,6 +33,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Evento',
     icon: Icons.event,
     type: 'event',
+    imageUrl: 'https://images.unsplash.com/photo-1517842645767-c639042777db',
   ),
   SearchItem(
     title: 'Congreso Nacional',
@@ -37,6 +41,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Evento',
     icon: Icons.event,
     type: 'event',
+    imageUrl: 'https://images.unsplash.com/photo-1517842645767-c639042777db',
   ),
   SearchItem(
     title: 'Congreso Nacional',
@@ -44,6 +49,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Evento',
     icon: Icons.event,
     type: 'event',
+    imageUrl: 'https://images.unsplash.com/photo-1517842645767-c639042777db',
   ),
 
   SearchItem(
@@ -52,6 +58,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Herramienta',
     icon: Icons.calculate,
     type: 'tool',
+    imageUrl: 'https://images.unsplash.com/photo-1517842645767-c639042777db',
   ),
   SearchItem(
     title: 'Calculadora Dental',
@@ -59,6 +66,7 @@ final List<SearchItem> mockSearchItems = [
     category: 'Herramienta',
     icon: Icons.calculate,
     type: 'tool',
+    imageUrl: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d',
   ),
   SearchItem(
     title: 'Calculadora Dental',
@@ -66,5 +74,6 @@ final List<SearchItem> mockSearchItems = [
     category: 'Herramienta',
     icon: Icons.calculate,
     type: 'tool',
+    imageUrl: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d',
   ),
 ];
