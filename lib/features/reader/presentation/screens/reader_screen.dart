@@ -710,7 +710,10 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
 
               label: 'Favorito',
               onTap: () async {
-                await FavoriteService.toggleFavorite(widget.document.title);
+                await FavoriteService.toggleFavorite(
+                  widget.document.title,
+                  widget.document.category,
+                );
 
                 final updated = await FavoriteService.isFavorite(
                   widget.document.title,

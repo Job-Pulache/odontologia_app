@@ -1,35 +1,23 @@
-import 'dart:convert';
-
-import 'package:shared_preferences/shared_preferences.dart';
+import '../../features/favorites/domain/entities/favorite_item.dart';
 
 class FavoriteService {
-  static const String favoritesKey = 'favorites';
+  static final List<FavoriteItem> _favorites = [];
 
-  static Future<List<String>> getFavorites() async {
-    final prefs = await SharedPreferences.getInstance();
+  static Future<void> toggleFavorite(String title, String category) async {
+    final exists = _favorites.any((e) => e.title == title);
 
-    final data = prefs.getStringList(favoritesKey);
-
-    return data ?? [];
-  }
-
-  static Future<void> toggleFavorite(String title) async {
-    final prefs = await SharedPreferences.getInstance();
-
-    final favorites = prefs.getStringList(favoritesKey) ?? [];
-
-    if (favorites.contains(title)) {
-      favorites.remove(title);
+    if (exists) {
+      _favorites.removeWhere((e) => e.title == title);
     } else {
-      favorites.add(title);
+      _favorites.add(FavoriteItem(title: title, category: category));
     }
-
-    await prefs.setStringList(favoritesKey, favorites);
   }
 
   static Future<bool> isFavorite(String title) async {
-    final favorites = await getFavorites();
+    return _favorites.any((e) => e.title == title);
+  }
 
-    return favorites.contains(title);
+  static List<FavoriteItem> getFavorites() {
+    return _favorites;
   }
 }

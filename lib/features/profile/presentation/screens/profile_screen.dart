@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../history/presentation/screens/history_screen.dart';
+import '../../../../core/storage/favorite_service.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -166,16 +167,28 @@ class ProfileScreen extends StatelessWidget {
 
                     const SizedBox(height: 20),
 
-                    FavoriteTile(
-                      title: 'Guía Clínica Endodoncia',
-                      subtitle: 'Documento guardado',
+                    ...FavoriteService.getFavorites().map(
+                      (favorite) => Padding(
+                        padding: const EdgeInsets.only(bottom: 14),
+
+                        child: FavoriteTile(
+                          title: favorite.title,
+                          subtitle: favorite.category,
+                        ),
+                      ),
                     ),
 
                     const SizedBox(height: 14),
 
-                    FavoriteTile(
-                      title: 'Protocolo de Bioseguridad',
-                      subtitle: 'PDF favorito',
+                    ...FavoriteService.getFavorites().map(
+                      (favorite) => Padding(
+                        padding: const EdgeInsets.only(bottom: 14),
+
+                        child: FavoriteTile(
+                          title: favorite.title,
+                          subtitle: favorite.category,
+                        ),
+                      ),
                     ),
                   ],
                 ),
