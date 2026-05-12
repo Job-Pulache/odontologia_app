@@ -179,7 +179,73 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 24),
 
+              // =====================================
+              // ACTIVIDAD
+              // =====================================
+              Container(
+                width: double.infinity,
+
+                padding: const EdgeInsets.all(22),
+
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+                    const Text(
+                      'Actividad',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+
+                      leading: const Icon(Icons.star, color: Colors.amber),
+
+                      title: const Text('Favoritos'),
+
+                      subtitle: const Text('Documentos guardados'),
+
+                      trailing: const Icon(Icons.chevron_right),
+
+                      onTap: () {},
+                    ),
+
+                    const Divider(),
+
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+
+                      leading: const Icon(Icons.history),
+
+                      title: const Text('Historial'),
+
+                      subtitle: const Text('Lecturas recientes'),
+
+                      trailing: const Icon(Icons.chevron_right),
+
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // =====================================
+              // OPCIONES
+              // =====================================
               const SizedBox(height: 24),
 
               // =====================================
