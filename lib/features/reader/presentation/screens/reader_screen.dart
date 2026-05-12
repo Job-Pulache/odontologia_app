@@ -8,6 +8,7 @@ import '../../../../features/library/domain/entities/document_entity.dart';
 //import '../../domain/entities/document_entity.dart';
 import '../../../../core/providers/theme_provider.dart';
 import '../../../../core/storage/favorite_service.dart';
+import '../../../../core/storage/note_service.dart';
 
 class ReaderScreen extends ConsumerStatefulWidget {
   final DocumentEntity document;
@@ -56,6 +57,7 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
 
     loadBookmark();
     loadFavorite();
+    loadNotes();
   }
 
   Future<void> loadFavorite() async {
@@ -63,6 +65,14 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
 
     setState(() {
       isFavorite = value;
+    });
+  }
+
+  Future<void> loadNotes() async {
+    final savedNotes = await NoteService.getNotes(widget.document.title);
+
+    setState(() {
+      notes.addAll(savedNotes);
     });
   }
 
@@ -816,6 +826,10 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
                                         setState(() {
                                           notes.add(noteController.text);
                                         });
+                                        NoteService.saveNotes(
+                                          widget.document.title,
+                                          notes,
+                                        );
 
                                         setModalState(() {});
 
