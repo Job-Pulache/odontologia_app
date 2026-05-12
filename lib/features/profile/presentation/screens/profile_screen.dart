@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../history/presentation/screens/history_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -235,7 +236,14 @@ class ProfileScreen extends StatelessWidget {
 
                       trailing: const Icon(Icons.chevron_right),
 
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const HistoryScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
