@@ -311,7 +311,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                 ),
 
                                 const SizedBox(width: 16),
-
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:

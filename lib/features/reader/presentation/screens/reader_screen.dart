@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../features/library/domain/entities/document_entity.dart';
 //import '../../domain/entities/document_entity.dart';
 import '../../../../core/providers/theme_provider.dart';
-import '../../../../core/storage/favorites_service.dart';
+import '../../../../core/storage/favorite_service.dart';
 
 class ReaderScreen extends ConsumerStatefulWidget {
   final DocumentEntity document;
@@ -55,15 +55,15 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
     super.initState();
 
     loadBookmark();
-    Future<void> loadFavorite() async {
-      final value = await FavoritesService.isFavorite(widget.document.title);
-
-      setState(() {
-        isFavorite = value;
-      });
-    }
-
     loadFavorite();
+  }
+
+  Future<void> loadFavorite() async {
+    final value = await FavoriteService.isFavorite(widget.document.title);
+
+    setState(() {
+      isFavorite = value;
+    });
   }
 
   Future<void> loadBookmark() async {
@@ -688,11 +688,10 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
               icon: isFavorite ? Icons.star : Icons.star_border,
 
               label: 'Favorito',
-
               onTap: () async {
-                await FavoritesService.toggleFavorite(widget.document.title);
+                await FavoriteService.toggleFavorite(widget.document.title);
 
-                final updated = await FavoritesService.isFavorite(
+                final updated = await FavoriteService.isFavorite(
                   widget.document.title,
                 );
 
@@ -702,20 +701,10 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    behavior: SnackBarBehavior.floating,
-
-                    backgroundColor: Colors.black87,
-
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-
                     content: Text(
                       isFavorite
-                          ? 'Documento agregado a favoritos'
-                          : 'Documento eliminado de favoritos',
-
-                      style: const TextStyle(color: Colors.white),
+                          ? 'Añadido a favoritos'
+                          : 'Eliminado de favoritos',
                     ),
                   ),
                 );
