@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/storage/favorite_service.dart';
 import '../../../library/domain/entities/document_entity.dart';
 import '../../../reader/presentation/screens/reader_screen.dart';
+import '../../domain/entities/favorite_item.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -13,7 +14,7 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
-  List<String> favorites = [];
+  List<FavoriteItem> favorites = [];
 
   @override
   void initState() {
@@ -55,7 +56,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               separatorBuilder: (_, __) => const SizedBox(height: 14),
 
               itemBuilder: (context, index) {
-                final title = favorites[index];
+                final favorite = favorites[index];
 
                 return GestureDetector(
                   onTap: () {
@@ -64,7 +65,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       MaterialPageRoute(
                         builder: (_) => ReaderScreen(
                           document: DocumentEntity(
-                            title: title,
+                            title: favorite.title,
                             description: 'Documento favorito',
                             filePath: '',
                             type: '',
@@ -110,7 +111,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
                         Expanded(
                           child: Text(
-                            title,
+                            favorite.title,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
