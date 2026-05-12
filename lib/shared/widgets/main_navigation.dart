@@ -23,7 +23,6 @@ class _MainNavigationState extends State<MainNavigation> {
     LibraryScreen(),
     EventsScreen(),
     ToolsScreen(),
-    FavoritesScreen(),
     ProfileScreen(),
   ];
 
@@ -70,11 +69,6 @@ class _MainNavigationState extends State<MainNavigation> {
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person),
             label: 'Perfil',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.star_border),
-            selectedIcon: Icon(Icons.star),
-            label: 'Favoritos',
           ),
         ],
       ),
