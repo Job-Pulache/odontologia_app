@@ -6,6 +6,7 @@ import '../../features/library/presentation/screens/library_screen.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/tools/presentation/screens/tools_screen.dart';
 import '../../features/reader/presentation/screens/reader_screen.dart';
+import '../../features/favorites/presentation/screens/favorites_screen.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -22,6 +23,7 @@ class _MainNavigationState extends State<MainNavigation> {
     LibraryScreen(),
     EventsScreen(),
     ToolsScreen(),
+    FavoritesScreen(),
     ProfileScreen(),
   ];
 
@@ -68,6 +70,11 @@ class _MainNavigationState extends State<MainNavigation> {
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person),
             label: 'Perfil',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.star_border),
+            selectedIcon: Icon(Icons.star),
+            label: 'Favoritos',
           ),
         ],
       ),
