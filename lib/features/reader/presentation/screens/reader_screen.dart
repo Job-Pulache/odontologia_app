@@ -10,6 +10,8 @@ import '../../../../core/providers/theme_provider.dart';
 import '../../../../core/storage/favorite_service.dart';
 import '../../../../core/storage/note_service.dart';
 import '../../../../core/storage/reading_history_service.dart';
+import '../../../../core/storage/history_service.dart';
+import '../../../history/domain/entities/history_item.dart';
 
 class ReaderScreen extends ConsumerStatefulWidget {
   final DocumentEntity document;
@@ -60,6 +62,13 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
     loadFavorite();
     loadNotes();
     ReadingHistoryService.addToHistory(widget.document.title);
+    HistoryService.addHistory(
+      HistoryItem(
+        title: widget.document.title,
+        category: widget.document.category,
+        openedAt: DateTime.now(),
+      ),
+    );
   }
 
   Future<void> loadFavorite() async {

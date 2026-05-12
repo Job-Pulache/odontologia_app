@@ -62,7 +62,7 @@ class _MainNavigationState extends State<MainNavigation> {
           NavigationDestination(
             icon: Icon(Icons.medical_services_outlined),
             selectedIcon: Icon(Icons.medical_services),
-            label: 'Herramientas',
+            label: 'Herramienta',
           ),
 
           NavigationDestination(
