@@ -10,8 +10,8 @@ import '../../../../core/providers/theme_provider.dart';
 import '../../../../core/storage/favorite_service.dart';
 import '../../../../core/storage/note_service.dart';
 import '../../../../core/storage/reading_history_service.dart';
-import '../../../../core/storage/history_service.dart';
 import '../../../history/domain/entities/history_item.dart';
+import '../../../../core/storage/history_service.dart';
 
 class ReaderScreen extends ConsumerStatefulWidget {
   final DocumentEntity document;
