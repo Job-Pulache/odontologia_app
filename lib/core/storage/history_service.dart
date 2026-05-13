@@ -1,15 +1,31 @@
-import '../../features/history/domain/entities/history_item.dart';
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'history_item.dart';
 
 class HistoryService {
-  static final List<HistoryItem> _history = [];
+  static const String key = 'history_documents';
 
-  static void addHistory(HistoryItem item) {
-    _history.removeWhere((e) => e.title == item.title);
+  static Future<void> addHistory(String title, String category) async {
+    final prefs = await SharedPreferences.getInstance();
 
-    _history.insert(0, item);
+    final data = prefs.getStringList(key) ?? [];
+
+    final item = HistoryItem(title: title, category: category);
+
+    data.insert(0, jsonEncode(item.toJson()));
+
+    await prefs.setStringList(key, data);
   }
 
-  static List<HistoryItem> getHistory() {
-    return _history;
+  static Future<List<HistoryItem>> getHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final data = prefs.getStringList(key) ?? [];
+
+    return data.map((e) {
+      return HistoryItem.fromJson(jsonDecode(e));
+    }).toList();
   }
 }
