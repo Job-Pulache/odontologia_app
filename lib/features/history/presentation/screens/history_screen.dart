@@ -48,85 +48,82 @@ class HistoryScreen extends StatelessWidget {
             separatorBuilder: (_, __) => const SizedBox(height: 14),
 
             itemBuilder: (context, index) {
-              itemBuilder:
-              (context, index) {
-                final item = history[index];
+              final item = history[index];
 
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ReaderScreen(
-                          document: DocumentEntity(
-                            title: item.title,
-                            description: item.category,
-                            filePath: '',
-                            type: '',
-                            category: item.category,
-                          ),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ReaderScreen(
+                        document: DocumentEntity(
+                          title: item.title,
+                          description: item.category,
+                          filePath: '',
+                          type: '',
+                          category: item.category,
                         ),
                       ),
-                    );
-                  },
-
-                  child: Container(
-                    padding: const EdgeInsets.all(18),
-
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(22),
                     ),
+                  );
+                },
 
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(14),
+                child: Container(
+                  padding: const EdgeInsets.all(18),
 
-                          decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-
-                          child: const Icon(
-                            Icons.history,
-                            color: AppColors.primary,
-                          ),
-                        ),
-
-                        const SizedBox(width: 16),
-
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-
-                            children: [
-                              Text(
-                                item.title,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-
-                              const SizedBox(height: 6),
-
-                              Text(
-                                item.category,
-                                style: const TextStyle(
-                                  color: AppColors.textSecondary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        const Icon(Icons.chevron_right),
-                      ],
-                    ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(22),
                   ),
-                );
-              };
+
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(14),
+
+                        decoration: BoxDecoration(
+                          color: AppColors.primary.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+
+                        child: const Icon(
+                          Icons.history,
+                          color: AppColors.primary,
+                        ),
+                      ),
+
+                      const SizedBox(width: 16),
+
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+
+                          children: [
+                            Text(
+                              item.title,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+
+                            const SizedBox(height: 6),
+
+                            Text(
+                              item.category,
+                              style: const TextStyle(
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const Icon(Icons.chevron_right),
+                    ],
+                  ),
+                ),
+              );
             },
           );
         },
