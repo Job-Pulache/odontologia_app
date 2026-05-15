@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/storage/document_storage_service.dart';
 
 import '../../domain/entities/document_entity.dart';
-
-import '../../../reader/presentation/screens/reader_screen.dart';
-import '../../../../core/storage/document_storage_service.dart';
-import '../../../reader/presentation/screens/pdf_reader_screen.dart';
 import '../../data/mock/mock_documents.dart';
+
+import '../../../pdf/presentation/screens/pdf_viewer_screen.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
@@ -18,14 +17,15 @@ class LibraryScreen extends StatefulWidget {
 
 class _LibraryScreenState extends State<LibraryScreen> {
   String selectedFilter = 'Todos';
+
   List<String> favorites = [];
   List<String> downloads = [];
 
   final filters = ['Todos', 'PDF', 'VIDEO', 'Offline'];
+
   @override
   void initState() {
     super.initState();
-
     loadStorage();
   }
 
@@ -71,6 +71,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 children: [
                   const Text(
                     'Biblioteca Clínica',
+
                     style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
 
@@ -78,6 +79,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
                   const Text(
                     'Consulta protocolos, normativas y documentos oficiales.',
+
                     style: TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 15,
@@ -106,7 +108,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
                   GridView.count(
                     crossAxisCount: 2,
+
                     shrinkWrap: true,
+
                     physics: const NeverScrollableScrollPhysics(),
 
                     mainAxisSpacing: 14,
@@ -179,6 +183,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
                             child: Text(
                               filter,
+
                               style: TextStyle(
                                 color: isSelected
                                     ? Colors.white
@@ -196,23 +201,30 @@ class _LibraryScreenState extends State<LibraryScreen> {
               ),
             ),
 
+            // =====================================
+            // LISTA DOCUMENTOS
+            // =====================================
             Expanded(
               child: ListView.separated(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.all(20),
 
                 itemCount: filteredDocs.length,
 
-                separatorBuilder: (_, __) => const SizedBox(height: 18),
+                separatorBuilder: (_, __) => const SizedBox(height: 16),
 
                 itemBuilder: (context, index) {
-                  final doc = filteredDocs[index];
+                  final document = filteredDocs[index];
 
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
+
                         MaterialPageRoute(
-                          builder: (_) => PdfReaderScreen(document: doc),
+                          builder: (_) => PdfViewerScreen(
+                            pdfUrl: document.filePath,
+                            title: document.title,
+                          ),
                         ),
                       );
                     },
@@ -228,8 +240,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.03),
-                            blurRadius: 12,
-                            offset: const Offset(0, 6),
+
+                            blurRadius: 10,
                           ),
                         ],
                       ),
@@ -237,8 +249,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       child: Row(
                         children: [
                           Container(
-                            width: 62,
-                            height: 62,
+                            padding: const EdgeInsets.all(16),
 
                             decoration: BoxDecoration(
                               color: AppColors.primary.withOpacity(0.1),
@@ -247,7 +258,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
                             ),
 
                             child: const Icon(
-                              Icons.picture_as_pdf_outlined,
+                              Icons.picture_as_pdf,
+
                               color: AppColors.primary,
                               size: 30,
                             ),
@@ -261,46 +273,60 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
                               children: [
                                 Text(
-                                  doc.title,
+                                  document.title,
+
                                   style: const TextStyle(
+                                    fontSize: 17,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
                                   ),
                                 ),
 
                                 const SizedBox(height: 8),
 
                                 Text(
-                                  doc.description,
+                                  document.description,
+
                                   style: const TextStyle(
                                     color: AppColors.textSecondary,
-                                    height: 1.5,
                                   ),
                                 ),
 
                                 const SizedBox(height: 12),
 
-                                Row(
-                                  children: [
-                                    miniTag(doc.type),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
 
-                                    const SizedBox(width: 10),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primary.withOpacity(0.08),
 
-                                    miniTag(doc.category),
-                                  ],
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+
+                                  child: Text(
+                                    document.category,
+
+                                    style: const TextStyle(
+                                      color: AppColors.primary,
+
+                                      fontWeight: FontWeight.w600,
+
+                                      fontSize: 12,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-
-                          const SizedBox(width: 10),
 
                           Column(
                             children: [
                               IconButton(
                                 onPressed: () async {
                                   await DocumentStorageService.toggleDownload(
-                                    doc.title,
+                                    document.title,
                                   );
 
                                   downloads =
@@ -310,11 +336,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                 },
 
                                 icon: Icon(
-                                  downloads.contains(doc.title)
+                                  downloads.contains(document.title)
                                       ? Icons.download_done
                                       : Icons.download_outlined,
 
-                                  color: downloads.contains(doc.title)
+                                  color: downloads.contains(document.title)
                                       ? AppColors.primary
                                       : null,
                                 ),
@@ -323,7 +349,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                               IconButton(
                                 onPressed: () async {
                                   await DocumentStorageService.toggleFavorite(
-                                    doc.title,
+                                    document.title,
                                   );
 
                                   favorites =
@@ -333,11 +359,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                 },
 
                                 icon: Icon(
-                                  favorites.contains(doc.title)
+                                  favorites.contains(document.title)
                                       ? Icons.favorite
                                       : Icons.favorite_border,
 
-                                  color: favorites.contains(doc.title)
+                                  color: favorites.contains(document.title)
                                       ? Colors.red
                                       : null,
                                 ),
@@ -357,38 +383,21 @@ class _LibraryScreenState extends State<LibraryScreen> {
     );
   }
 
-  Widget miniTag(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-
-      decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.08),
-        borderRadius: BorderRadius.circular(20),
-      ),
-
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: AppColors.primary,
-          fontWeight: FontWeight.w600,
-          fontSize: 12,
-        ),
-      ),
-    );
-  }
-
   Widget categoryCard({required IconData icon, required String title}) {
     return Container(
       padding: const EdgeInsets.all(18),
 
       decoration: BoxDecoration(
         color: Colors.white,
+
         borderRadius: BorderRadius.circular(22),
 
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.03),
+
             blurRadius: 12,
+
             offset: const Offset(0, 6),
           ),
         ],
@@ -396,6 +405,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+
         mainAxisAlignment: MainAxisAlignment.center,
 
         children: [
@@ -404,15 +414,24 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
             decoration: BoxDecoration(
               color: AppColors.primary.withOpacity(0.1),
+
               borderRadius: BorderRadius.circular(16),
             ),
 
             child: Icon(icon, color: AppColors.primary),
           ),
 
-          const SizedBox(height: 14),
+          const SizedBox(height: 10),
 
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            title,
+
+            maxLines: 2,
+
+            overflow: TextOverflow.ellipsis,
+
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+          ),
         ],
       ),
     );
