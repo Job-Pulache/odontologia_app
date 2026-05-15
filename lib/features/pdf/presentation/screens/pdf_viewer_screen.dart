@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PdfViewerScreen extends StatelessWidget {
   final String pdfUrl;
@@ -7,12 +7,22 @@ class PdfViewerScreen extends StatelessWidget {
 
   const PdfViewerScreen({super.key, required this.pdfUrl, required this.title});
 
+  Future<void> openPdf() async {
+    final Uri url = Uri.parse(pdfUrl);
+
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw Exception('No se pudo abrir el PDF');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    openPdf();
+
     return Scaffold(
       appBar: AppBar(title: Text(title)),
 
-      body: SfPdfViewer.network(pdfUrl),
+      body: const Center(child: CircularProgressIndicator()),
     );
   }
 }
