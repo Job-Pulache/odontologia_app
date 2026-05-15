@@ -59,7 +59,7 @@ class HistoryScreen extends StatelessWidget {
                       builder: (_) => const PdfViewerScreen(
                         title: 'protocolo de bioseguridad',
                         pdfUrl:
-                            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+                            'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
                       ),
                     ),
                   );
