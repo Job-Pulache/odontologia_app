@@ -5,6 +5,7 @@ import '../../../../core/storage/history_service.dart';
 import '../../../../core/storage/history_item.dart';
 import '../../../reader/presentation/screens/reader_screen.dart';
 import '../../../library/domain/entities/document_entity.dart';
+import '../../../pdf/presentation/screens/pdf_viewer_screen.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
@@ -55,14 +56,10 @@ class HistoryScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => ReaderScreen(
-                        document: DocumentEntity(
-                          title: item.title,
-                          description: item.category,
-                          filePath: '',
-                          type: '',
-                          category: item.category,
-                        ),
+                      builder: (_) => const PdfViewerScreen(
+                        title: 'protocolo de bioseguridad',
+                        pdfUrl:
+                            'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
                       ),
                     ),
                   );
