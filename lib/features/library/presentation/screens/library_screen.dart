@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_colors.dart';
 
-import '../../data/mock_documents.dart';
 import '../../domain/entities/document_entity.dart';
 
 import '../../../reader/presentation/screens/reader_screen.dart';
 import '../../../../core/storage/document_storage_service.dart';
 import '../../../reader/presentation/screens/pdf_reader_screen.dart';
+import '../../data/mock/mock_documents.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
@@ -112,7 +112,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     mainAxisSpacing: 14,
                     crossAxisSpacing: 14,
 
-                    childAspectRatio: 1.6,
+                    childAspectRatio: 1.15,
 
                     children: [
                       categoryCard(
