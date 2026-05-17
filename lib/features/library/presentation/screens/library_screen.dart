@@ -17,6 +17,7 @@ class LibraryScreen extends StatefulWidget {
 
 class _LibraryScreenState extends State<LibraryScreen> {
   String selectedFilter = 'Todos';
+  String searchQuery = '';
 
   List<String> favorites = [];
   List<String> downloads = [];
@@ -40,7 +41,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     List<DocumentEntity> filteredDocs;
-
     if (selectedFilter == 'Todos') {
       filteredDocs = mockDocuments;
     } else if (selectedFilter == 'Offline') {
@@ -51,6 +51,18 @@ class _LibraryScreenState extends State<LibraryScreen> {
       filteredDocs = mockDocuments
           .where((doc) => doc.type == selectedFilter)
           .toList();
+    }
+
+    // =====================================
+    // Search filters
+    // =====================================
+
+    if (searchQuery.isNotEmpty) {
+      filteredDocs = filteredDocs.where((doc) {
+        return doc.title.toLowerCase().contains(searchQuery) ||
+            doc.description.toLowerCase().contains(searchQuery) ||
+            doc.category.toLowerCase().contains(searchQuery);
+      }).toList();
     }
 
     return Scaffold(
@@ -89,6 +101,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   const SizedBox(height: 24),
 
                   TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        searchQuery = value.toLowerCase();
+                      });
+                    },
+
                     decoration: InputDecoration(
                       hintText: 'Buscar documento...',
 
@@ -103,7 +121,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 24),
 
                   GridView.count(
