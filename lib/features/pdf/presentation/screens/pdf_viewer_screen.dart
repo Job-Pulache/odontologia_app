@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../core/storage/history_service.dart';
 
 class PdfViewerScreen extends StatelessWidget {
   final String pdfUrl;
@@ -17,6 +18,8 @@ class PdfViewerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HistoryService.addHistory(title, 'Documento Clínico');
+
     openPdf();
 
     return Scaffold(
