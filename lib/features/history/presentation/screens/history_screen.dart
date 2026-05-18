@@ -50,76 +50,35 @@ class HistoryScreen extends StatelessWidget {
 
             itemBuilder: (context, index) {
               final item = history[index];
+              return Dismissible(
+                key: Key(item.title + index.toString()),
 
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const PdfViewerScreen(
-                        title: 'protocolo de bioseguridad',
-                        pdfUrl:
-                            'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
-                      ),
+                direction: DismissDirection.endToStart,
+
+                background: Container(
+                  alignment: Alignment.centerRight,
+
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(22),
+                  ),
+
+                  child: const Icon(Icons.delete, color: Colors.white),
+                ),
+
+                onDismissed: (_) async {
+                  await HistoryService.removeHistory(item.title);
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Documento eliminado del historial'),
                     ),
                   );
                 },
 
-                child: Container(
-                  padding: const EdgeInsets.all(18),
-
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(22),
-                  ),
-
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(14),
-
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-
-                        child: const Icon(
-                          Icons.history,
-                          color: AppColors.primary,
-                        ),
-                      ),
-
-                      const SizedBox(width: 16),
-
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-
-                          children: [
-                            Text(
-                              item.title,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-
-                            const SizedBox(height: 6),
-
-                            Text(
-                              item.category,
-                              style: const TextStyle(
-                                color: AppColors.textSecondary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      const Icon(Icons.chevron_right),
-                    ],
-                  ),
-                ),
+                child: GestureDetector(),
               );
             },
           );
