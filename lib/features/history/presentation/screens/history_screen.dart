@@ -24,13 +24,16 @@ class HistoryScreen extends StatelessWidget {
 
       body: FutureBuilder<List<HistoryItem>>(
         future: HistoryService.getHistory(),
-
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          final history = snapshot.data!;
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+
+          final history = snapshot.data ?? [];
 
           if (history.isEmpty) {
             return const Center(
@@ -50,6 +53,7 @@ class HistoryScreen extends StatelessWidget {
 
             itemBuilder: (context, index) {
               final item = history[index];
+
               return Dismissible(
                 key: Key(item.title + index.toString()),
 
@@ -78,7 +82,66 @@ class HistoryScreen extends StatelessWidget {
                   );
                 },
 
-                child: GestureDetector(),
+                child: GestureDetector(
+                  onTap: () {},
+
+                  child: Container(
+                    padding: const EdgeInsets.all(18),
+
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(22),
+                    ),
+
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(14),
+
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(0.1),
+
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+
+                          child: const Icon(
+                            Icons.history,
+                            color: AppColors.primary,
+                          ),
+                        ),
+
+                        const SizedBox(width: 16),
+
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
+                            children: [
+                              Text(
+                                item.title,
+
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+
+                              const SizedBox(height: 6),
+
+                              Text(
+                                item.category,
+
+                                style: const TextStyle(
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               );
             },
           );
