@@ -40,18 +40,20 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<DocumentEntity> filteredDocs;
-    if (selectedFilter == 'Todos') {
-      filteredDocs = mockDocuments;
-    } else if (selectedFilter == 'Offline') {
-      filteredDocs = mockDocuments
-          .where((doc) => downloads.contains(doc.title))
-          .toList();
-    } else {
-      filteredDocs = mockDocuments
-          .where((doc) => doc.type == selectedFilter)
-          .toList();
-    }
+    List<DocumentEntity> filteredDocs = mockDocuments.where((doc) {
+      final matchesSearch =
+          doc.title.toLowerCase().contains(searchQuery) ||
+          doc.description.toLowerCase().contains(searchQuery) ||
+          doc.category.toLowerCase().contains(searchQuery);
+
+      final matchesFilter = selectedFilter == 'Todos'
+          ? true
+          : selectedFilter == 'Offline'
+          ? downloads.contains(doc.title)
+          : doc.type == selectedFilter;
+
+      return matchesSearch && matchesFilter;
+    }).toList();
 
     // =====================================
     // Search filters
