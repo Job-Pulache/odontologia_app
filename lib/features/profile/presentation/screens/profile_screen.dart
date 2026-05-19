@@ -1,14 +1,35 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_colors.dart';
-import '../../../history/presentation/screens/history_screen.dart';
-import '../../../../core/storage/favorite_service.dart';
 import '../../../../core/storage/history_service.dart';
 import '../../../../core/storage/history_item.dart';
+import '../../../../core/storage/favorite_service.dart';
+
 import '../../../history/presentation/screens/history_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  List<HistoryItem> recentHistory = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadHistory();
+  }
+
+  Future<void> loadHistory() async {
+    final data = await HistoryService.getHistory();
+
+    setState(() {
+      recentHistory = data.take(3).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -180,27 +201,15 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    const SizedBox(height: 14),
-
-                    ...FavoriteService.getFavorites().map(
-                      (favorite) => Padding(
-                        padding: const EdgeInsets.only(bottom: 14),
-
-                        child: FavoriteTile(
-                          title: favorite.title,
-                          subtitle: favorite.category,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
               const SizedBox(height: 24),
 
-              // =====================================
               // ACTIVIDAD
               // =====================================
+              const SizedBox(height: 24),
+
               Container(
                 width: double.infinity,
 
@@ -215,65 +224,113 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                    const Text(
-                      'Actividad',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                    const SizedBox(height: 20),
-
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-
-                      leading: const Icon(Icons.star, color: Colors.amber),
-
-                      title: const Text('Favoritos'),
-
-                      subtitle: const Text('Documentos guardados'),
-
-                      trailing: const Icon(Icons.chevron_right),
-
-                      onTap: () {},
-                    ),
-
-                    const Divider(),
-
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-
-                      leading: const Icon(Icons.history),
-
-                      title: const Text('Historial'),
-
-                      subtitle: const Text('Lecturas recientes'),
-
-                      trailing: const Icon(Icons.chevron_right),
-
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const HistoryScreen(),
+                      children: [
+                        const Text(
+                          'Actividad Reciente',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
                           ),
-                        );
-                      },
+                        ),
+
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const HistoryScreen(),
+                              ),
+                            );
+                          },
+
+                          child: const Text('Ver todo'),
+                        ),
+                      ],
                     ),
+
+                    const SizedBox(height: 18),
+
+                    recentHistory.isEmpty
+                        ? const Padding(
+                            padding: EdgeInsets.all(20),
+
+                            child: Center(
+                              child: Text(
+                                'Aún no hay actividad reciente',
+                                style: TextStyle(
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Column(
+                            children: recentHistory.map((item) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(12),
+
+                                      decoration: BoxDecoration(
+                                        color: AppColors.primary.withOpacity(
+                                          0.1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+
+                                      child: const Icon(
+                                        Icons.history,
+                                        color: AppColors.primary,
+                                      ),
+                                    ),
+
+                                    const SizedBox(width: 14),
+
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+
+                                        children: [
+                                          Text(
+                                            item.title,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+
+                                          const SizedBox(height: 4),
+
+                                          Text(
+                                            item.category,
+
+                                            style: const TextStyle(
+                                              color: AppColors.textSecondary,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          ),
                   ],
                 ),
               ),
 
-              const SizedBox(height: 24),
-
               // =====================================
-              // OPCIONES
-              // =====================================
-              const SizedBox(height: 24),
-
-              // =====================================
-              // OPCIONES
+              //            // OPCIONES
               // =====================================
               Container(
                 decoration: BoxDecoration(
@@ -305,7 +362,6 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
               const SizedBox(height: 40),
             ],
           ),
