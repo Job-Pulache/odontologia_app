@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../history/presentation/screens/history_screen.dart';
 import '../../../../core/storage/favorite_service.dart';
+import '../../../../core/storage/history_service.dart';
+import '../../../../core/storage/history_item.dart';
+import '../../../history/presentation/screens/history_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
