@@ -284,57 +284,72 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: recentHistory.map((item) {
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 16),
-
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(12),
-
-                                      decoration: BoxDecoration(
-                                        color: AppColors.primary.withOpacity(
-                                          0.1,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => PdfViewerScreen(
+                                          pdfUrl: item.pdfUrl,
+                                          title: item.title,
                                         ),
-                                        borderRadius: BorderRadius.circular(14),
                                       ),
+                                    );
+                                  },
 
-                                      child: const Icon(
-                                        Icons.history,
-                                        color: AppColors.primary,
-                                      ),
-                                    ),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(12),
 
-                                    const SizedBox(width: 14),
-
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-
-                                        children: [
-                                          Text(
-                                            item.title,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.primary.withOpacity(
+                                            0.1,
                                           ),
-
-                                          const SizedBox(height: 4),
-
-                                          Text(
-                                            item.category,
-
-                                            style: const TextStyle(
-                                              color: AppColors.textSecondary,
-                                              fontSize: 13,
-                                            ),
+                                          borderRadius: BorderRadius.circular(
+                                            14,
                                           ),
-                                        ],
+                                        ),
+
+                                        child: const Icon(
+                                          Icons.history,
+                                          color: AppColors.primary,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+
+                                      const SizedBox(width: 14),
+
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+
+                                          children: [
+                                            Text(
+                                              item.title,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+
+                                            const SizedBox(height: 4),
+
+                                            Text(
+                                              item.category,
+
+                                              style: const TextStyle(
+                                                color: AppColors.textSecondary,
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             }).toList(),
