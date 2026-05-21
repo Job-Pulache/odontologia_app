@@ -62,7 +62,11 @@ El incumplimiento de estas medidas podrá representar un riesgo sanitario signif
     loadFavorite();
     loadNotes();
     ReadingHistoryService.addToHistory(widget.document.title);
-    HistoryService.addHistory(widget.document.title, widget.document.category);
+    HistoryService.addHistory(
+      widget.document.title,
+      widget.document.category,
+      widget.document.filePath,
+    );
   }
 
   Future<void> loadFavorite() async {
