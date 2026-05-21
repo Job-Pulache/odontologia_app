@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:odontologia_app/features/pdf/presentation/screens/pdf_viewer_screen.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/storage/history_service.dart';
 import '../../../../core/storage/history_item.dart';
 import '../../../../core/storage/favorite_service.dart';
-
+import '../../../reader/presentation/screens/pdf_reader_screen.dart';
 import '../../../history/presentation/screens/history_screen.dart';
+import '../../../reader/presentation/screens/reader_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -194,10 +196,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ...FavoriteService.getFavorites().map(
                       (favorite) => Padding(
                         padding: const EdgeInsets.only(bottom: 14),
-
-                        child: FavoriteTile(
-                          title: favorite.title,
-                          subtitle: favorite.category,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => PdfViewerScreen(
+                                  pdfUrl: favorite.filePath,
+                                  title: favorite.title,
+                                ),
+                              ),
+                            );
+                          },
+                          child: FavoriteTile(
+                            title: favorite.title,
+                            subtitle: favorite.category,
+                          ),
                         ),
                       ),
                     ),

@@ -9,7 +9,9 @@ class FavoriteService {
     if (exists) {
       _favorites.removeWhere((e) => e.title == title);
     } else {
-      _favorites.add(FavoriteItem(title: title, category: category));
+      _favorites.add(
+        FavoriteItem(title: title, category: category, filePath: ''),
+      );
     }
   }
 
