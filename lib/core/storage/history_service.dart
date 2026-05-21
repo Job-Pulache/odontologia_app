@@ -8,14 +8,18 @@ import 'history_item.dart';
 class HistoryService {
   static const String key = 'history_documents';
 
-  static Future<void> addHistory(String title, String category) async {
+  static Future<void> addHistory(
+    String title,
+    String category,
+    String pdfUrl,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
 
     final data = prefs.getStringList(key) ?? [];
 
-    final item = HistoryItem(title: title, category: category);
+    final item = HistoryItem(title: title, category: category, pdfUrl: pdfUrl);
 
-    data.insert(0, jsonEncode(item.toJson()));
+    data.insert(0, jsonEncode(item.toMap()));
 
     await prefs.setStringList(key, data);
   }
@@ -26,7 +30,7 @@ class HistoryService {
     final data = prefs.getStringList(key) ?? [];
 
     return data.map((e) {
-      return HistoryItem.fromJson(jsonDecode(e));
+      return HistoryItem.fromMap(jsonDecode(e));
     }).toList();
   }
 

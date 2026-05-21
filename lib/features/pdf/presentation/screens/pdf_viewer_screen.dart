@@ -18,7 +18,7 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
   void initState() {
     super.initState();
 
-    HistoryService.addHistory(widget.title, 'Documento Clínico');
+    HistoryService.addHistory(widget.title, 'Documento Clínico', widget.pdfUrl);
 
     openPdf();
   }
