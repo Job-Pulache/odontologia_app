@@ -8,6 +8,7 @@ import '../../../../core/storage/favorite_service.dart';
 import '../../../reader/presentation/screens/pdf_reader_screen.dart';
 import '../../../history/presentation/screens/history_screen.dart';
 import '../../../reader/presentation/screens/reader_screen.dart';
+import '../../../../features/pdf/presentation/screens/pdf_viewer_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

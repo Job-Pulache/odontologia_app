@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "840672481262",
+    "project_id": "odontologiaapp-d273f",
+    "storage_bucket": "odontologiaapp-d273f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840672481262:android:238db6c048bc958ea548ff",
+        "android_client_info": {
+          "package_name": "com.example.odontologia_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNomgZjXUkBZPDUpS4ExC-rJRqALYLF1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
