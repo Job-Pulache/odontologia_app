@@ -9,6 +9,7 @@ import 'core/providers/theme_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'features/auth/presentation/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +35,8 @@ class MyApp extends ConsumerWidget {
 
       darkTheme: ThemeData.dark(),
 
-      home: const MainNavigation(),
+      // home: const MainNavigation(),
+      home: const LoginScreen(),
     );
   }
 }
