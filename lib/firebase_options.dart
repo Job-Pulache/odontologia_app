@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'odontologiaapp-d273f.firebasestorage.app',
     measurementId: 'G-HHQ7JNKNZ8',
   );
+
 }
