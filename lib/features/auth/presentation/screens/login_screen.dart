@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'otp_screen.dart';
+import '../../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,29 +24,25 @@ class _LoginScreenState extends State<LoginScreen> {
       loading = true;
     });
 
-    await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: phoneController.text,
+    AuthService.sendOtp(
+      phone: '+51${phoneController.text.trim()}',
 
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        await FirebaseAuth.instance.signInWithCredential(credential);
+      codeSent: (verificationId) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => OtpScreen(
+              verificationId: verificationId,
+              phone: phoneController.text.trim(),
+            ),
+          ),
+        );
       },
 
-      verificationFailed: (FirebaseAuthException e) {
+      onError: (error) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text(e.message ?? 'Error')));
-      },
-
-      codeSent: (String verId, int? resendToken) {
-        verificationId = verId;
-
-        setState(() {
-          codeSent = true;
-        });
-      },
-
-      codeAutoRetrievalTimeout: (String verId) {
-        verificationId = verId;
+        ).showSnackBar(SnackBar(content: Text(error)));
       },
     );
 
