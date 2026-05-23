@@ -1,7 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:odontologia_app/features/auth/services/user_validation_service.dart';
+import 'package:odontologia_app/shared/widgets/main_navigation.dart';
 import 'otp_screen.dart';
 import '../../services/auth_service.dart';
+import '../../services/user_validation_service.dart';
+import '../../../../shared/widgets/main_navigation.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -28,27 +32,21 @@ class _LoginScreenState extends State<LoginScreen> {
       phone: '+51${phoneController.text.trim()}',
 
       codeSent: (verificationId) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => OtpScreen(
-              verificationId: verificationId,
-              phone: phoneController.text.trim(),
-            ),
-          ),
-        );
+        setState(() {
+          this.verificationId = verificationId;
+          codeSent = true;
+          loading = false;
+        });
       },
-
       onError: (error) {
+        setState(() {
+          loading = false;
+        });
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text(error)));
       },
     );
-
-    setState(() {
-      loading = false;
-    });
   }
 
   Future<void> verifyCode() async {
@@ -56,20 +54,47 @@ class _LoginScreenState extends State<LoginScreen> {
       loading = true;
     });
 
-    final credential = PhoneAuthProvider.credential(
-      verificationId: verificationId,
-      smsCode: codeController.text,
-    );
+    try {
+      await AuthService.verifyOtp(
+        verificationId: verificationId,
+        otp: codeController.text.trim(),
+      );
 
-    await FirebaseAuth.instance.signInWithCredential(credential);
+      final isAuthorized = await UserValidationService.isAuthorizedUser(
+        phoneController.text.trim(),
+      );
+
+      if (!isAuthorized) {
+        await AuthService.logout();
+
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('No estás autorizado')));
+
+        setState(() {
+          loading = false;
+        });
+
+        return;
+      }
+
+      if (!mounted) return;
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const MainNavigation()),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Código inválido')));
+    }
 
     setState(() {
       loading = false;
     });
-
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Login exitoso')));
   }
 
   @override
