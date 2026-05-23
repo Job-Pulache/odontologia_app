@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../services/auth_service.dart';
 import '../../../../shared/widgets/main_navigation.dart';
+import '../../services/user_validation_service.dart';
 
 class OtpScreen extends StatefulWidget {
   final String verificationId;
@@ -34,6 +35,23 @@ class _OtpScreenState extends State<OtpScreen> {
         verificationId: widget.verificationId,
         otp: otpController.text.trim(),
       );
+      final isAuthorized = await UserValidationService.isAuthorizedUser(
+        widget.phone,
+      );
+
+      if (!isAuthorized) {
+        await AuthService.logout();
+
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Este número no pertenece a un colegiado autorizado'),
+          ),
+        );
+
+        return;
+      }
 
       if (!mounted) return;
 
