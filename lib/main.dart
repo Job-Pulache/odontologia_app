@@ -36,7 +36,7 @@ class MyApp extends ConsumerWidget {
 
       darkTheme: ThemeData.dark(),
 
-      home: const LoginScreen(),
+      home: const AuthGate(),
     );
   }
 }
