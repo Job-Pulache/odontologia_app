@@ -9,9 +9,11 @@ plugins {
 }
 
 android {
+    ndkVersion = "30.0.14904198"
     namespace = "com.example.odontologia_app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    //ndkVersion = flutter.ndkVersion
+   
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -27,7 +29,7 @@ android {
         applicationId = "com.example.odontologia_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 23 
+        minSdk = flutter.minSdkVersion 
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
