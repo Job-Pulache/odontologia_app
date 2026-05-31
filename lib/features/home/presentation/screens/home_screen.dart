@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../shared/widgets/app_card.dart';
@@ -32,15 +31,12 @@ class HomeScreen extends StatelessWidget {
                         MaterialPageRoute(builder: (_) => const SearchScreen()),
                       );
                     },
-
                     child: Container(
                       padding: const EdgeInsets.all(10),
-
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(14),
                       ),
-
                       child: const Icon(Icons.search, size: 24),
                     ),
                   ),
@@ -65,7 +61,6 @@ class HomeScreen extends StatelessWidget {
                       child: Stack(
                         children: [
                           const Icon(Icons.notifications_none, size: 26),
-
                           Positioned(
                             right: 0,
                             top: 0,
@@ -82,279 +77,273 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                ],
+              ),
 
-                  const SizedBox(height: AppSpacing.lg),
+              const SizedBox(height: AppSpacing.lg),
 
-                  Container(
-                    width: double.infinity,
+              Container(
+                width: double.infinity,
 
-                    padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
 
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF1F5AA6), Color(0xFF4DA6FF)],
-                      ),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF1F5AA6), Color(0xFF4DA6FF)],
+                  ),
 
-                      borderRadius: BorderRadius.circular(24),
-                    ),
+                  borderRadius: BorderRadius.circular(24),
+                ),
 
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 6,
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+
+                          child: const Row(
+                            children: [
+                              Icon(
+                                Icons.campaign_outlined,
+                                color: Colors.white,
+                                size: 16,
                               ),
 
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.15),
-                                borderRadius: BorderRadius.circular(30),
+                              SizedBox(width: 6),
+
+                              Text(
+                                'Nuevo',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12,
+                                ),
                               ),
-
-                              child: const Row(
-                                children: [
-                                  Icon(
-                                    Icons.campaign_outlined,
-                                    color: Colors.white,
-                                    size: 16,
-                                  ),
-
-                                  SizedBox(width: 6),
-
-                                  Text(
-                                    'Nuevo',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            const Spacer(),
-
-                            const Icon(
-                              Icons.chevron_right,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 24),
-
-                        const Text(
-                          'Comunicado Oficial',
-                          style: TextStyle(color: Colors.white70, fontSize: 14),
-                        ),
-
-                        const SizedBox(height: 8),
-
-                        const Text(
-                          'Actualización del Reglamento de Ética 2026',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            height: 1.2,
+                            ],
                           ),
                         ),
+
+                        const Spacer(),
+
+                        const Icon(Icons.chevron_right, color: Colors.white),
                       ],
                     ),
+
+                    const SizedBox(height: 24),
+
+                    const Text(
+                      'Comunicado Oficial',
+                      style: TextStyle(color: Colors.white70, fontSize: 14),
+                    ),
+
+                    const SizedBox(height: 8),
+
+                    const Text(
+                      'Actualización del Reglamento de Ética 2026',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        height: 1.2,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: AppSpacing.xl),
+
+              // =========================
+              // ACCESOS RAPIDOS
+              // =========================
+              const SectionHeader(title: 'Accesos Rápidos', action: 'Ver todo'),
+
+              const SizedBox(height: AppSpacing.md),
+
+              GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                childAspectRatio: 1.2,
+
+                children: const [
+                  QuickAccessCard(
+                    icon: Icons.menu_book_outlined,
+                    title: 'Biblioteca Clínica',
+                    subtitle: '142 recursos',
                   ),
 
-                  const SizedBox(height: AppSpacing.xl),
-
-                  // =========================
-                  // ACCESOS RAPIDOS
-                  // =========================
-                  const SectionHeader(
-                    title: 'Accesos Rápidos',
-                    action: 'Ver todo',
+                  QuickAccessCard(
+                    icon: Icons.event_outlined,
+                    title: 'Eventos Académicos',
+                    subtitle: '8 este mes',
                   ),
 
-                  const SizedBox(height: AppSpacing.md),
-
-                  GridView.count(
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    childAspectRatio: 1.2,
-
-                    children: const [
-                      QuickAccessCard(
-                        icon: Icons.menu_book_outlined,
-                        title: 'Biblioteca Clínica',
-                        subtitle: '142 recursos',
-                      ),
-
-                      QuickAccessCard(
-                        icon: Icons.event_outlined,
-                        title: 'Eventos Académicos',
-                        subtitle: '8 este mes',
-                      ),
-
-                      QuickAccessCard(
-                        icon: Icons.medical_services_outlined,
-                        title: 'Herramientas',
-                        subtitle: '12 utilidades',
-                      ),
-
-                      QuickAccessCard(
-                        icon: Icons.badge_outlined,
-                        title: 'Mi Colegiatura',
-                        subtitle: 'Vigente',
-                      ),
-                    ],
+                  QuickAccessCard(
+                    icon: Icons.medical_services_outlined,
+                    title: 'Herramientas',
+                    subtitle: '12 utilidades',
                   ),
 
-                  const SizedBox(height: AppSpacing.xl),
-
-                  // =========================
-                  // CONTINUAR LEYENDO
-                  // =========================
-                  const SectionHeader(
-                    title: 'Continuar Leyendo',
-                    action: 'Ver más',
+                  QuickAccessCard(
+                    icon: Icons.badge_outlined,
+                    title: 'Mi Colegiatura',
+                    subtitle: 'Vigente',
                   ),
+                ],
+              ),
 
-                  const SizedBox(height: AppSpacing.md),
+              const SizedBox(height: AppSpacing.xl),
 
-                  AppCard(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              // =========================
+              // CONTINUAR LEYENDO
+              // =========================
+              const SectionHeader(
+                title: 'Continuar Leyendo',
+                action: 'Ver más',
+              ),
 
+              const SizedBox(height: AppSpacing.md),
+
+              AppCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
+                        Container(
+                          padding: const EdgeInsets.all(10),
 
-                              decoration: BoxDecoration(
-                                color: AppColors.primary.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
 
-                              child: const Icon(
-                                Icons.description_outlined,
-                                color: AppColors.primary,
-                              ),
-                            ),
-
-                            const SizedBox(width: 12),
-
-                            const Expanded(
-                              child: Text(
-                                'Guía Clínica de Endodoncia',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-
-                            const Text(
-                              '65%',
-                              style: TextStyle(color: AppColors.textSecondary),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 16),
-
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-
-                          child: const LinearProgressIndicator(
-                            value: 0.65,
-                            minHeight: 8,
-                            backgroundColor: Color(0xFFE5E7EB),
+                          child: const Icon(
+                            Icons.description_outlined,
                             color: AppColors.primary,
                           ),
                         ),
 
-                        const SizedBox(height: 12),
+                        const SizedBox(width: 12),
+
+                        const Expanded(
+                          child: Text(
+                            'Guía Clínica de Endodoncia',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
 
                         const Text(
-                          'Capítulo 4 de 7',
+                          '65%',
                           style: TextStyle(color: AppColors.textSecondary),
                         ),
                       ],
                     ),
-                  ),
 
-                  const SizedBox(height: AppSpacing.xl),
+                    const SizedBox(height: 16),
 
-                  // =========================
-                  // ULTIMOS COMUNICADOS
-                  // =========================
-                  const SectionHeader(
-                    title: 'Últimos Comunicados',
-                    action: 'Ver todo',
-                  ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
 
-                  const SizedBox(height: AppSpacing.md),
-
-                  const Column(
-                    children: [
-                      NewsCard(
-                        title: 'Nuevo Reglamento de Ética',
-                        date: '12 Mar 2025',
+                      child: const LinearProgressIndicator(
+                        value: 0.65,
+                        minHeight: 8,
+                        backgroundColor: Color(0xFFE5E7EB),
+                        color: AppColors.primary,
                       ),
-
-                      SizedBox(height: 14),
-
-                      NewsCard(
-                        title: 'Renovación de Colegiatura 2025',
-                        date: '08 Mar 2025',
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: AppSpacing.xl),
-
-                  // =========================
-                  // PROXIMOS EVENTOS
-                  // =========================
-                  const SectionHeader(
-                    title: 'Próximos Eventos',
-                    action: 'Ver todo',
-                  ),
-
-                  const SizedBox(height: AppSpacing.md),
-
-                  SizedBox(
-                    height: 160,
-
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-
-                      children: const [
-                        EventMiniCard(
-                          title: 'Congreso Nacional de Odontología',
-                          location: 'Lima Convention Center',
-                          date: '22 Mar',
-                        ),
-
-                        SizedBox(width: 14),
-
-                        EventMiniCard(
-                          title: 'Taller de Implantología Avanzada',
-                          location: 'Sede Central CO',
-                          date: '05 Abr',
-                        ),
-                      ],
                     ),
+
+                    const SizedBox(height: 12),
+
+                    const Text(
+                      'Capítulo 4 de 7',
+                      style: TextStyle(color: AppColors.textSecondary),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: AppSpacing.xl),
+
+              // =========================
+              // ULTIMOS COMUNICADOS
+              // =========================
+              const SectionHeader(
+                title: 'Últimos Comunicados',
+                action: 'Ver todo',
+              ),
+
+              const SizedBox(height: AppSpacing.md),
+
+              const Column(
+                children: [
+                  NewsCard(
+                    title: 'Nuevo Reglamento de Ética',
+                    date: '12 Mar 2025',
                   ),
 
-                  const SizedBox(height: 40),
+                  SizedBox(height: 14),
+
+                  NewsCard(
+                    title: 'Renovación de Colegiatura 2025',
+                    date: '08 Mar 2025',
+                  ),
                 ],
               ),
+
+              const SizedBox(height: AppSpacing.xl),
+
+              // =========================
+              // PROXIMOS EVENTOS
+              // =========================
+              const SectionHeader(
+                title: 'Próximos Eventos',
+                action: 'Ver todo',
+              ),
+
+              const SizedBox(height: AppSpacing.md),
+
+              SizedBox(
+                height: 160,
+
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+
+                  children: const [
+                    EventMiniCard(
+                      title: 'Congreso Nacional de Odontología',
+                      location: 'Lima Convention Center',
+                      date: '22 Mar',
+                    ),
+
+                    SizedBox(width: 14),
+
+                    EventMiniCard(
+                      title: 'Taller de Implantología Avanzada',
+                      location: 'Sede Central CO',
+                      date: '05 Abr',
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 40),
             ],
           ),
         ),
