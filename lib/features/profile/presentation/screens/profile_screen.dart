@@ -60,7 +60,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: AppColors.primary,
                   borderRadius: BorderRadius.circular(30),
                 ),
-
                 child: Column(
                   children: [
                     const CircleAvatar(
@@ -69,20 +68,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpUqorzGvPIkBcSmuqqCmVr8-cG4z4mA57BQ&s',
                       ),
                     ),
-
                     const SizedBox(height: 18),
-
                     const Text(
-                      'Dr. Juan Carlos Pérez',
+                      'Dr. Nahum Carlos Dominguez',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
                     const SizedBox(height: 8),
-
                     const Text(
                       'Ortodoncia y Rehabilitación Oral',
                       style: TextStyle(color: Colors.white70),
