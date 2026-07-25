@@ -26,11 +26,17 @@ class HomeScreen extends StatelessWidget {
               // HEADER
               // =========================
               const HomeHeader(),
+              const SizedBox(height: AppSpacing.lg),
+
               const HeroBanner(),
+              const SizedBox(height: AppSpacing.xl),
+
               // =========================
               // ACCESOS RAPIDOS
               // =========================
               const QuickAccessSection(),
+              const SizedBox(height: AppSpacing.xl),
+
               // =========================
               // CONTINUAR LEYENDO
               // =========================
