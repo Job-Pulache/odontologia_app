@@ -5,6 +5,7 @@ import '../../../../shared/widgets/app_card.dart';
 import '../../../search/presentation/screens/search_screen.dart';
 import '../../../notifications/presentation/screens/notifications_screen.dart';
 import '../widgets/Home_header.dart';
+import '../widgets/Hero_banner.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,86 +27,7 @@ class HomeScreen extends StatelessWidget {
               const HomeHeader(),
               const SizedBox(height: AppSpacing.lg),
 
-              Container(
-                width: double.infinity,
-
-                padding: const EdgeInsets.all(24),
-
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF1F5AA6), Color(0xFF4DA6FF)],
-                  ),
-
-                  borderRadius: BorderRadius.circular(24),
-                ),
-
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-
-                          child: const Row(
-                            children: [
-                              Icon(
-                                Icons.campaign_outlined,
-                                color: Colors.white,
-                                size: 16,
-                              ),
-
-                              SizedBox(width: 6),
-
-                              Text(
-                                'Nuevo',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        const Spacer(),
-
-                        const Icon(Icons.chevron_right, color: Colors.white),
-                      ],
-                    ),
-
-                    const SizedBox(height: 24),
-
-                    const Text(
-                      'Comunicado Oficial',
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
-                    ),
-
-                    const SizedBox(height: 8),
-
-                    const Text(
-                      'Actualización del Reglamento de Ética 2026',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        height: 1.2,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
+              const HeroBanner(),
               const SizedBox(height: AppSpacing.xl),
 
               // =========================
