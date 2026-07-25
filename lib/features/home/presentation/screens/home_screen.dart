@@ -6,6 +6,7 @@ import '../../../search/presentation/screens/search_screen.dart';
 import '../../../notifications/presentation/screens/notifications_screen.dart';
 import '../widgets/Home_header.dart';
 import '../widgets/Hero_banner.dart';
+import '../widgets/Quick_access_section.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,56 +26,11 @@ class HomeScreen extends StatelessWidget {
               // HEADER
               // =========================
               const HomeHeader(),
-              const SizedBox(height: AppSpacing.lg),
-
               const HeroBanner(),
-              const SizedBox(height: AppSpacing.xl),
-
               // =========================
               // ACCESOS RAPIDOS
               // =========================
-              const SectionHeader(title: 'Accesos Rápidos', action: 'Ver todo'),
-
-              const SizedBox(height: AppSpacing.md),
-
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                childAspectRatio: 1.2,
-
-                children: const [
-                  QuickAccessCard(
-                    icon: Icons.menu_book_outlined,
-                    title: 'Biblioteca Clínica',
-                    subtitle: '142 recursos',
-                  ),
-
-                  QuickAccessCard(
-                    icon: Icons.event_outlined,
-                    title: 'Eventos Académicos',
-                    subtitle: '8 este mes',
-                  ),
-
-                  QuickAccessCard(
-                    icon: Icons.medical_services_outlined,
-                    title: 'Herramientas',
-                    subtitle: '12 utilidades',
-                  ),
-
-                  QuickAccessCard(
-                    icon: Icons.badge_outlined,
-                    title: 'Mi Colegiatura',
-                    subtitle: 'Vigente',
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: AppSpacing.xl),
-
+              const QuickAccessSection(),
               // =========================
               // CONTINUAR LEYENDO
               // =========================
